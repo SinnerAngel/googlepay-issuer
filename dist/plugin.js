@@ -1,23 +1,13 @@
 var capacitorGooglePayIssuer = (function (exports, core) {
     'use strict';
 
-    class GooglePayIssuerWeb extends core.WebPlugin {
-        constructor() {
-            super({
-                name: 'GooglePayIssuerPlugin',
-                platforms: ['web'],
-            });
-        }
+    const { GooglePayIssuer } = core.Plugins;
+    class GooglePayIssuerWeb {
         async getActiveWalletID() {
             return;
         }
         async getTokenStatus(tsp, tokenReferenceId) {
-            console.log('tsp', tsp);
-            console.log('tokenReferenceId', tokenReferenceId);
-            return {
-                tsp,
-                tokenReferenceId
-            };
+            return GooglePayIssuer.getTokenStatus(tsp, tokenReferenceId);
         }
         async getEnvironment() {
             return;
@@ -47,8 +37,6 @@ var capacitorGooglePayIssuer = (function (exports, core) {
             return options;
         }
     }
-    const GooglePayIssuer = new GooglePayIssuerWeb();
-    core.registerWebPlugin(GooglePayIssuer);
 
     exports.GooglePayIssuer = GooglePayIssuer;
     exports.GooglePayIssuerWeb = GooglePayIssuerWeb;

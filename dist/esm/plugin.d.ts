@@ -1,7 +1,6 @@
-import { WebPlugin } from '@capacitor/core';
 import type { GooglePayIssuerPlugin } from './definitions';
-export declare class GooglePayIssuerWeb extends WebPlugin implements GooglePayIssuerPlugin {
-    constructor();
+declare const GooglePayIssuer: GooglePayIssuerPlugin;
+export declare class GooglePayIssuerWeb implements GooglePayIssuerPlugin {
     getActiveWalletID(): Promise<any>;
     getTokenStatus(tsp: string, tokenReferenceId: string): Promise<any>;
     getEnvironment(): Promise<any>;
@@ -14,5 +13,4 @@ export declare class GooglePayIssuerWeb extends WebPlugin implements GooglePayIs
         value: string;
     }>;
 }
-declare const GooglePayIssuer: GooglePayIssuerWeb;
 export { GooglePayIssuer };

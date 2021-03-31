@@ -4,23 +4,13 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var core = require('@capacitor/core');
 
-class GooglePayIssuerWeb extends core.WebPlugin {
-    constructor() {
-        super({
-            name: 'GooglePayIssuerPlugin',
-            platforms: ['web'],
-        });
-    }
+const { GooglePayIssuer } = core.Plugins;
+class GooglePayIssuerWeb {
     async getActiveWalletID() {
         return;
     }
     async getTokenStatus(tsp, tokenReferenceId) {
-        console.log('tsp', tsp);
-        console.log('tokenReferenceId', tokenReferenceId);
-        return {
-            tsp,
-            tokenReferenceId
-        };
+        return GooglePayIssuer.getTokenStatus(tsp, tokenReferenceId);
     }
     async getEnvironment() {
         return;
@@ -50,8 +40,6 @@ class GooglePayIssuerWeb extends core.WebPlugin {
         return options;
     }
 }
-const GooglePayIssuer = new GooglePayIssuerWeb();
-core.registerWebPlugin(GooglePayIssuer);
 
 exports.GooglePayIssuer = GooglePayIssuer;
 exports.GooglePayIssuerWeb = GooglePayIssuerWeb;
