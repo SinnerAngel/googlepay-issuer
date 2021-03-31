@@ -1,8 +1,17 @@
-package com.google.android.capacitor.googlepay.issuer;
+package com.google.android.capacitor.googlepay;
 
-public class GooglePayIssuer {
+import com.getcapacitor.JSObject;
+import com.getcapacitor.Plugin;
+import com.getcapacitor.PluginCall;
+import com.getcapacitor.PluginMethod;
 
-    public String echo(String value) {
-        return value;
+public class GooglePayIssuerPlugin extends Plugin {
+
+    @PluginMethod
+    public void echo(PluginCall call) {
+        String value = call.getString("value");
+
+        JSObject ret = new JSObject();
+        call.resolve(ret);
     }
 }
