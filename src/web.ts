@@ -1,5 +1,4 @@
-import { WebPlugin, Plugins } from '@capacitor/core';
-const { GooglePayIssuer } = Plugins;
+import { WebPlugin } from '@capacitor/core';
 
 import type { GooglePayIssuerPlugin } from './definitions';
 
@@ -57,4 +56,9 @@ export class GooglePayIssuerWeb extends WebPlugin implements GooglePayIssuerPlug
   }
 }
 
+const GooglePayIssuer = new GooglePayIssuerWeb();
+
 export { GooglePayIssuer };
+
+import { registerWebPlugin } from "@capacitor/core";
+registerWebPlugin(GooglePayIssuer);
