@@ -3,6 +3,7 @@ declare module "@capacitor/core" {
     GooglePayIssuer: GooglePayIssuerPlugin
   }
 }
+
 export interface GooglePayIssuerPlugin {
   /**
   * returns the ID of the active wallet
