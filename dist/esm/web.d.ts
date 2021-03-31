@@ -14,3 +14,5 @@ export declare class GooglePayIssuerWeb extends WebPlugin implements GooglePayIs
         value: string;
     }>;
 }
+declare const GooglePayIssuer: GooglePayIssuerWeb;
+export { GooglePayIssuer };

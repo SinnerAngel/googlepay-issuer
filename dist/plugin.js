@@ -1,10 +1,6 @@
 var capacitorGooglePayIssuer = (function (exports, core) {
     'use strict';
 
-    const GooglePayIssuer = core.registerPlugin('GooglePayIssuer', {
-        web: () => Promise.resolve().then(function () { return web; }).then(m => new m.GooglePayIssuerWeb()),
-    });
-
     class GooglePayIssuerWeb extends core.WebPlugin {
         constructor() {
             super({
@@ -51,13 +47,11 @@ var capacitorGooglePayIssuer = (function (exports, core) {
             return options;
         }
     }
-
-    var web = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        GooglePayIssuerWeb: GooglePayIssuerWeb
-    });
+    const GooglePayIssuer = new GooglePayIssuerWeb();
+    core.registerWebPlugin(GooglePayIssuer);
 
     exports.GooglePayIssuer = GooglePayIssuer;
+    exports.GooglePayIssuerWeb = GooglePayIssuerWeb;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

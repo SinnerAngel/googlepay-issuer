@@ -45,4 +45,8 @@ export class GooglePayIssuerWeb extends WebPlugin {
         return options;
     }
 }
+const GooglePayIssuer = new GooglePayIssuerWeb();
+export { GooglePayIssuer };
+import { registerWebPlugin } from "@capacitor/core";
+registerWebPlugin(GooglePayIssuer);
 //# sourceMappingURL=web.js.map
