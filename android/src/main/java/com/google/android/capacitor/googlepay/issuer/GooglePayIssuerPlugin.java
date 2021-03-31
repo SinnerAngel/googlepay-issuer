@@ -1,9 +1,10 @@
-package com.google.android.capacitor.googlepay.issuer;
+package com.google.android.capacitor.googlepay;
 
-import com.getcapacitor.NativePlugin;
+import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
+import com.getcapacitor.annotation.CapacitorPlugin;
 
 @CapacitorPlugin(name = "GooglePayIssuer")
 public class GooglePayIssuerPlugin extends Plugin {
