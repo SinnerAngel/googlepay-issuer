@@ -9,6 +9,7 @@ export class GooglePayIssuerWeb extends WebPlugin implements GooglePayIssuerPlug
       platforms: ['web'],
     });
   }
+
   async getActiveWalletID(): Promise<any> {
     return;
   }

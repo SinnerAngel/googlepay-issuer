@@ -1,6 +1,6 @@
 declare module "@capacitor/core" {
   interface PluginRegistry {
-    GooglePayIssuerPlugin: GooglePayIssuerPlugin
+    GooglePayIssuer: GooglePayIssuerPlugin
   }
 }
 export interface GooglePayIssuerPlugin {
