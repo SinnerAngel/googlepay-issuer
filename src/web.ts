@@ -54,3 +54,10 @@ export class GooglePayIssuerWeb extends WebPlugin implements GooglePayIssuerPlug
     return options;
   }
 }
+
+const GooglePayIssuer = new GooglePayIssuerWeb();
+
+export { GooglePayIssuer };
+
+import { registerWebPlugin } from "@capacitor/core";
+registerWebPlugin(GooglePayIssuer);
