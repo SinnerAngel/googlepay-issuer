@@ -4,7 +4,7 @@ var capacitorGooglePayIssuer = (function (exports, core) {
     const { GooglePayIssuer } = core.Plugins;
     class GooglePayIssuerWeb {
         async getActiveWalletID() {
-            return;
+            return GooglePayIssuer.getActiveWalletID();
         }
         async getTokenStatus(tsp, tokenReferenceId) {
             return GooglePayIssuer.getTokenStatus(tsp, tokenReferenceId);

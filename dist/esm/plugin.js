@@ -2,7 +2,7 @@ import { Plugins } from '@capacitor/core';
 const { GooglePayIssuer } = Plugins;
 export class GooglePayIssuerWeb {
     async getActiveWalletID() {
-        return;
+        return GooglePayIssuer.getActiveWalletID();
     }
     async getTokenStatus(tsp, tokenReferenceId) {
         return GooglePayIssuer.getTokenStatus(tsp, tokenReferenceId);

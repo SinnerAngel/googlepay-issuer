@@ -67,4 +67,38 @@ public class GooglePayIssuer extends Plugin {
             call.error(e.getMessage());
         }
        }
+       
+       @PluginMethod
+       public void getActiveWalletID(CallbackContext callbackContext) {
+        try{
+          tapAndPay.getActiveWalletId().addOnCompleteListener(
+            new OnCompleteListener<String>() {
+              @Override
+              public void onComplete(@NonNull Task<String> task) {
+                Log.i(TAG, "onComplete (getActiveWalletID) - " + task.isSuccessful());
+                if (task.isSuccessful()) {
+                  walletId = task.getResult();
+                  // Next: look up token ids for the active wallet
+                  // This typically involves network calls to a server with knowledge
+                  // of wallets and tokens.
+                  callbackContext.success(walletId);
+                } else {
+                  ApiException apiException = (ApiException) task.getException();
+                  if (apiException.getStatusCode() == TAP_AND_PAY_NO_ACTIVE_WALLET) {
+                    // There is no wallet. A wallet will be created when tokenize()
+                    // or pushTokenize() is called.
+                    // If necessary, you can call createWallet() to create a wallet
+                    // eagerly before constructing an OPC (Opaque Payment Card)
+                    // to pass into pushTokenize()
+                    createWallet();
+                    getActiveWalletID(callbackContext);
+                  }
+                }
+              }
+            });
+        }
+        catch (Exception e){
+          callbackContext.error(e.getMessage());
+        }
+      }
 }

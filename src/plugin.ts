@@ -6,7 +6,7 @@ const { GooglePayIssuer } = Plugins;
 export class GooglePayIssuerWeb implements GooglePayIssuerPlugin {
 
     async getActiveWalletID(): Promise<any> {
-        return;
+        return GooglePayIssuer.getActiveWalletID();
     }
 
     async getTokenStatus(tsp: string, tokenReferenceId: string): Promise<any> {
