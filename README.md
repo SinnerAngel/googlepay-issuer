@@ -1,11 +1,11 @@
-# capacitor-plugin-googlepay
+# capacitor-plugin-googlepay-issuer
 
 Plugin do Google Pay para o Capacitor
 
 ## Install
 
 ```bash
-npm install capacitor-plugin-googlepay
+npm install capacitor-plugin-googlepay-issuer
 npx cap sync
 ```
 
