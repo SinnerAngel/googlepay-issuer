@@ -1,3 +1,8 @@
+declare module "@capacitor/core" {
+  interface PluginRegistry {
+    GooglePayIssuerPlugin: GooglePayIssuerPlugin
+  }
+}
 export interface GooglePayIssuerPlugin {
   /**
   * returns the ID of the active wallet

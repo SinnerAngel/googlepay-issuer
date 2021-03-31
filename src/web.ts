@@ -3,6 +3,12 @@ import { WebPlugin } from '@capacitor/core';
 import type { GooglePayIssuerPlugin } from './definitions';
 
 export class GooglePayIssuerWeb extends WebPlugin implements GooglePayIssuerPlugin {
+  constructor() {
+    super({
+      name: 'GooglePayIssuerPlugin',
+      platforms: ['web'],
+    });
+  }
   async getActiveWalletID(): Promise<any> {
     return;
   }
