@@ -1,4 +1,4 @@
-package com.google.android.capacitor.googlepay;
+package com.google.android.capacitor.googlepay.issuer;
 
 public class GooglePayIssuer {
 

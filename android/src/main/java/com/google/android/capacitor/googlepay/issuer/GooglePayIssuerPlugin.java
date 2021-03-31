@@ -1,4 +1,4 @@
-package com.google.android.capacitor.googlepay;
+package com.google.android.capacitor.googlepay.issuer;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
