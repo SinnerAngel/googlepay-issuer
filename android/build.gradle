@@ -46,8 +46,8 @@ repositories {
     jcenter()
     mavenCentral()
     maven {
-        url "$buildDir//res//google_pay_sdk"
-    }
+          url "$rootDir//app//src//main//assets//public//assets//google_pay_sdk"
+        }
 }
 
 

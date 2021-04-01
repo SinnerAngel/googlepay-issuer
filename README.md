@@ -13,25 +13,44 @@ npx cap sync
 
 <docgen-index>
 
+* [`pushProvision(...)`](#pushprovision)
 * [`getActiveWalletID()`](#getactivewalletid)
 * [`getTokenStatus(...)`](#gettokenstatus)
 * [`getEnvironment()`](#getenvironment)
 * [`getStableHardwareId()`](#getstablehardwareid)
 * [`listTokens()`](#listtokens)
-* [`pushProvision(...)`](#pushprovision)
 
 </docgen-index>
 
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
 
+### pushProvision(...)
+
+```typescript
+pushProvision(opc: string, tsp: string, clientName: string, lastDigits: string, address: object) => any
+```
+
+returns the ID of the active wallet
+
+| Param            | Type                |
+| ---------------- | ------------------- |
+| **`opc`**        | <code>string</code> |
+| **`tsp`**        | <code>string</code> |
+| **`clientName`** | <code>string</code> |
+| **`lastDigits`** | <code>string</code> |
+| **`address`**    | <code>object</code> |
+
+**Returns:** <code>any</code>
+
+--------------------
+
+
 ### getActiveWalletID()
 
 ```typescript
 getActiveWalletID() => any
 ```
-
-returns the ID of the active wallet
 
 **Returns:** <code>any</code>
 
@@ -44,12 +63,10 @@ returns the ID of the active wallet
 getTokenStatus(tsp: string, tokenReferenceId: string) => any
 ```
 
-returns the status of a token with a given token ID
-
-| Param                  | Type                | Description                                                                               |
-| ---------------------- | ------------------- | ----------------------------------------------------------------------------------------- |
-| **`tsp`**              | <code>string</code> | Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider). |
-| **`tokenReferenceId`** | <code>string</code> | token registered to the active wallet                                                     |
+| Param                  | Type                |
+| ---------------------- | ------------------- |
+| **`tsp`**              | <code>string</code> |
+| **`tokenReferenceId`** | <code>string</code> |
 
 **Returns:** <code>any</code>
 
@@ -62,8 +79,6 @@ returns the status of a token with a given token ID
 getEnvironment() => any
 ```
 
-returns the environment (e.g. production or sandbox)
-
 **Returns:** <code>any</code>
 
 --------------------
@@ -75,8 +90,6 @@ returns the environment (e.g. production or sandbox)
 getStableHardwareId() => any
 ```
 
-returns the stable hardware ID of the device
-
 **Returns:** <code>any</code>
 
 --------------------
@@ -87,29 +100,6 @@ returns the stable hardware ID of the device
 ```typescript
 listTokens() => any
 ```
-
-returns a list of tokens registered to the active wallet
-
-**Returns:** <code>any</code>
-
---------------------
-
-
-### pushProvision(...)
-
-```typescript
-pushProvision(opc: string, tsp: string, clientName: string, lastDigits: string, address: object) => any
-```
-
-Search apps by keyword
-
-| Param            | Type                | Description                                                                               |
-| ---------------- | ------------------- | ----------------------------------------------------------------------------------------- |
-| **`opc`**        | <code>string</code> | Sets Opaque Payment Card binary data.                                                     |
-| **`tsp`**        | <code>string</code> | Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider). |
-| **`clientName`** | <code>string</code> | Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider). |
-| **`lastDigits`** | <code>string</code> | Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider). |
-| **`address`**    | <code>object</code> | Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider). |
 
 **Returns:** <code>any</code>
 

@@ -6,9 +6,35 @@
     "tags": [],
     "methods": [
       {
-        "name": "getActiveWalletID",
-        "signature": "() => any",
-        "parameters": [],
+        "name": "pushProvision",
+        "signature": "(opc: string, tsp: string, clientName: string, lastDigits: string, address: object) => any",
+        "parameters": [
+          {
+            "name": "opc",
+            "docs": "",
+            "type": "string"
+          },
+          {
+            "name": "tsp",
+            "docs": "",
+            "type": "string"
+          },
+          {
+            "name": "clientName",
+            "docs": "",
+            "type": "string"
+          },
+          {
+            "name": "lastDigits",
+            "docs": "",
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "docs": "",
+            "type": "object"
+          }
+        ],
         "returns": "any",
         "tags": [
           {
@@ -16,6 +42,16 @@
           }
         ],
         "docs": "returns the ID of the active wallet",
+        "complexTypes": [],
+        "slug": "pushprovision"
+      },
+      {
+        "name": "getActiveWalletID",
+        "signature": "() => any",
+        "parameters": [],
+        "returns": "any",
+        "tags": [],
+        "docs": "",
         "complexTypes": [],
         "slug": "getactivewalletid"
       },
@@ -25,30 +61,18 @@
         "parameters": [
           {
             "name": "tsp",
-            "docs": "Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).",
+            "docs": "",
             "type": "string"
           },
           {
             "name": "tokenReferenceId",
-            "docs": "token registered to the active wallet",
+            "docs": "",
             "type": "string"
           }
         ],
         "returns": "any",
-        "tags": [
-          {
-            "name": "param",
-            "text": "tsp Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider)."
-          },
-          {
-            "name": "param",
-            "text": "tokenReferenceId token registered to the active wallet"
-          },
-          {
-            "name": "return"
-          }
-        ],
-        "docs": "returns the status of a token with a given token ID",
+        "tags": [],
+        "docs": "",
         "complexTypes": [],
         "slug": "gettokenstatus"
       },
@@ -57,12 +81,8 @@
         "signature": "() => any",
         "parameters": [],
         "returns": "any",
-        "tags": [
-          {
-            "name": "return"
-          }
-        ],
-        "docs": "returns the environment (e.g. production or sandbox)",
+        "tags": [],
+        "docs": "",
         "complexTypes": [],
         "slug": "getenvironment"
       },
@@ -71,12 +91,8 @@
         "signature": "() => any",
         "parameters": [],
         "returns": "any",
-        "tags": [
-          {
-            "name": "return"
-          }
-        ],
-        "docs": "returns the stable hardware ID of the device",
+        "tags": [],
+        "docs": "",
         "complexTypes": [],
         "slug": "getstablehardwareid"
       },
@@ -85,74 +101,10 @@
         "signature": "() => any",
         "parameters": [],
         "returns": "any",
-        "tags": [
-          {
-            "name": "return"
-          }
-        ],
-        "docs": "returns a list of tokens registered to the active wallet",
+        "tags": [],
+        "docs": "",
         "complexTypes": [],
         "slug": "listtokens"
-      },
-      {
-        "name": "pushProvision",
-        "signature": "(opc: string, tsp: string, clientName: string, lastDigits: string, address: object) => any",
-        "parameters": [
-          {
-            "name": "opc",
-            "docs": "Sets Opaque Payment Card binary data.",
-            "type": "string"
-          },
-          {
-            "name": "tsp",
-            "docs": "Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).",
-            "type": "string"
-          },
-          {
-            "name": "clientName",
-            "docs": "Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).",
-            "type": "string"
-          },
-          {
-            "name": "lastDigits",
-            "docs": "Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).",
-            "type": "string"
-          },
-          {
-            "name": "address",
-            "docs": "Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).",
-            "type": "object"
-          }
-        ],
-        "returns": "any",
-        "tags": [
-          {
-            "name": "param",
-            "text": "opc Sets Opaque Payment Card binary data."
-          },
-          {
-            "name": "param",
-            "text": "tsp Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider)."
-          },
-          {
-            "name": "param",
-            "text": "clientName Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider)."
-          },
-          {
-            "name": "param",
-            "text": "lastDigits Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider)."
-          },
-          {
-            "name": "param",
-            "text": "address Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider)."
-          },
-          {
-            "name": "return"
-          }
-        ],
-        "docs": "Search apps by keyword",
-        "complexTypes": [],
-        "slug": "pushprovision"
       }
     ],
     "properties": []
