@@ -1,10 +1,8 @@
 package com.google.android.capacitor.googlepay.issuer;
 
 import android.util.Log;
+import android.content.Intent;
 import androidx.annotation.NonNull;
-
-import static com.google.android.gms.tapandpay.TapAndPayStatusCodes.TAP_AND_PAY_NO_ACTIVE_WALLET;
-import static com.google.android.gms.tapandpay.TapAndPayStatusCodes.TAP_AND_PAY_TOKEN_NOT_FOUND;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
@@ -14,15 +12,12 @@ import com.getcapacitor.PluginMethod;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tapandpay.TapAndPay;
 import com.google.android.gms.tapandpay.TapAndPayClient;
-import com.google.android.gms.tapandpay.issuer.PushTokenizeRequest;
-import com.google.android.gms.tapandpay.issuer.TokenInfo;
 import com.google.android.gms.tapandpay.issuer.TokenStatus;
-import com.google.android.gms.tapandpay.issuer.UserAddress;
-import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import java.util.List;
+
+import static com.google.android.gms.tapandpay.TapAndPayStatusCodes.TAP_AND_PAY_NO_ACTIVE_WALLET;
+import static com.google.android.gms.tapandpay.TapAndPayStatusCodes.TAP_AND_PAY_TOKEN_NOT_FOUND;
 
 @NativePlugin()
 public class GooglePayIssuer extends Plugin {
@@ -37,15 +32,16 @@ public class GooglePayIssuer extends Plugin {
 
     public GooglePayIssuer() {}
 
-    @PluginMethod()
-    public void initialize(PluginCall call) {
-        tapAndPay = TapAndPay.getClient(this);
+    @Override
+    public void load() {
+    super.load();
+      this.tapAndPay = TapAndPay.getClient(bridge.getActivity());
     }
-    
+
     @PluginMethod()
     public void getTokenStatus(int tsp, String tokenReferenceId, final PluginCall call){
         try{
-          tapAndPay.getTokenStatus(tsp, tokenReferenceId)
+          this.tapAndPay.getTokenStatus(tsp, tokenReferenceId)
             .addOnCompleteListener(
               new OnCompleteListener<TokenStatus>() {
                 @Override
@@ -55,12 +51,16 @@ public class GooglePayIssuer extends Plugin {
                     @TapAndPay.TokenState int tokenStateInt = task.getResult().getTokenState();
                     boolean isSelected = task.getResult().isSelected();
                     // Next: update payment card UI to reflect token state and selection
-                    call.success(tokenStateInt);
+                    JSObject result = new JSObject();
+                    result.put("tokenStateInt",tokenStateInt);
+                    call.success(result);
                   } else {
                     ApiException apiException = (ApiException) task.getException();
                     if (apiException.getStatusCode() == TAP_AND_PAY_TOKEN_NOT_FOUND) {
                       // Could not get token status
-                      call.success(apiException.getStatusCode());
+                      JSObject result = new JSObject();
+                      result.put("error",apiException.getStatusCode());
+                      call.success(result);
                     }
                   }
                 }
@@ -74,7 +74,7 @@ public class GooglePayIssuer extends Plugin {
        @PluginMethod()
        public void getActiveWalletID(final PluginCall call) {
         try{
-          tapAndPay.getActiveWalletId().addOnCompleteListener(
+          this.tapAndPay.getActiveWalletId().addOnCompleteListener(
             new OnCompleteListener<String>() {
               @Override
               public void onComplete(@NonNull Task<String> task) {
@@ -84,7 +84,9 @@ public class GooglePayIssuer extends Plugin {
                   // Next: look up token ids for the active wallet
                   // This typically involves network calls to a server with knowledge
                   // of wallets and tokens.
-                  call.success(walletId);
+                  JSObject result = new JSObject();
+                  result.put("walletId",walletId);
+                  call.success(result);
                 } else {
                   ApiException apiException = (ApiException) task.getException();
                   if (apiException.getStatusCode() == TAP_AND_PAY_NO_ACTIVE_WALLET) {
@@ -93,7 +95,7 @@ public class GooglePayIssuer extends Plugin {
                     // If necessary, you can call createWallet() to create a wallet
                     // eagerly before constructing an OPC (Opaque Payment Card)
                     // to pass into pushTokenize()
-                    createWallet();
+//                    createWallet();
                     getActiveWalletID(call);
                   }
                 }
@@ -101,7 +103,7 @@ public class GooglePayIssuer extends Plugin {
             });
         }
         catch (Exception e){
-            call.error(e.getMessage());
+          call.error(e.getMessage());
         }
       }
 }
