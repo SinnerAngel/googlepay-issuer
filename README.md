@@ -41,14 +41,15 @@ returns the ID of the active wallet
 ### getTokenStatus(...)
 
 ```typescript
-getTokenStatus(options: { tsp: string; tokenReferenceId: string; }) => any
+getTokenStatus(tsp: string, tokenReferenceId: string) => any
 ```
 
 returns the status of a token with a given token ID
 
-| Param         | Type                                                    |
-| ------------- | ------------------------------------------------------- |
-| **`options`** | <code>{ tsp: string; tokenReferenceId: string; }</code> |
+| Param                  | Type                | Description                                                                               |
+| ---------------------- | ------------------- | ----------------------------------------------------------------------------------------- |
+| **`tsp`**              | <code>string</code> | Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider). |
+| **`tokenReferenceId`** | <code>string</code> | token registered to the active wallet                                                     |
 
 **Returns:** <code>any</code>
 
@@ -97,14 +98,18 @@ returns a list of tokens registered to the active wallet
 ### pushProvision(...)
 
 ```typescript
-pushProvision(options: { opc: string; tsp: string; clientName: string; lastDigits: string; address: object; }) => any
+pushProvision(opc: string, tsp: string, clientName: string, lastDigits: string, address: object) => any
 ```
 
 Push Provisionig
 
-| Param         | Type                                                                                                |
-| ------------- | --------------------------------------------------------------------------------------------------- |
-| **`options`** | <code>{ opc: string; tsp: string; clientName: string; lastDigits: string; address: object; }</code> |
+| Param            | Type                | Description                                                                               |
+| ---------------- | ------------------- | ----------------------------------------------------------------------------------------- |
+| **`opc`**        | <code>string</code> | Sets Opaque Payment Card binary data.                                                     |
+| **`tsp`**        | <code>string</code> | Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider). |
+| **`clientName`** | <code>string</code> | Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider). |
+| **`lastDigits`** | <code>string</code> | Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider). |
+| **`address`**    | <code>object</code> | Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider). |
 
 **Returns:** <code>any</code>
 

@@ -21,12 +21,17 @@
       },
       {
         "name": "getTokenStatus",
-        "signature": "(options: { tsp: string; tokenReferenceId: string; }) => any",
+        "signature": "(tsp: string, tokenReferenceId: string) => any",
         "parameters": [
           {
-            "name": "options",
-            "docs": "",
-            "type": "{ tsp: string; tokenReferenceId: string; }"
+            "name": "tsp",
+            "docs": "Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).",
+            "type": "string"
+          },
+          {
+            "name": "tokenReferenceId",
+            "docs": "token registered to the active wallet",
+            "type": "string"
           }
         ],
         "returns": "any",
@@ -91,12 +96,32 @@
       },
       {
         "name": "pushProvision",
-        "signature": "(options: { opc: string; tsp: string; clientName: string; lastDigits: string; address: object; }) => any",
+        "signature": "(opc: string, tsp: string, clientName: string, lastDigits: string, address: object) => any",
         "parameters": [
           {
-            "name": "options",
-            "docs": "",
-            "type": "{ opc: string; tsp: string; clientName: string; lastDigits: string; address: object; }"
+            "name": "opc",
+            "docs": "Sets Opaque Payment Card binary data.",
+            "type": "string"
+          },
+          {
+            "name": "tsp",
+            "docs": "Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).",
+            "type": "string"
+          },
+          {
+            "name": "clientName",
+            "docs": "Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).",
+            "type": "string"
+          },
+          {
+            "name": "lastDigits",
+            "docs": "Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).",
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "docs": "Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).",
+            "type": "object"
           }
         ],
         "returns": "any",
