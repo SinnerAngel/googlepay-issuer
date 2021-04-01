@@ -74,7 +74,7 @@ export interface IGooglePayIssuerPlugin {
     */
     listTokens(): Promise<any>;
     /**
-    * Push Provisionig
+    *  Starts the push tokenization flow
     * @param opc {string} Sets Opaque Payment Card binary data.
     * @param tsp {string} Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).
     * @param clientName {string} Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).

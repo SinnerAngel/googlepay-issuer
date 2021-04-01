@@ -100,7 +100,7 @@ returns a list of tokens registered to the active wallet
 pushProvision(options: { opc: string; tsp: string; clientName: string; lastDigits: string; address: object; }) => any
 ```
 
-Push Provisionig
+Starts the push tokenization flow
 
 | Param         | Type                                                                                                |
 | ------------- | --------------------------------------------------------------------------------------------------- |
