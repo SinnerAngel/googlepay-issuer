@@ -1,5 +1,8 @@
 package com.google.android.capacitor.googlepay.issuer;
 
+import android.util.Log;
+import androidx.annotation.NonNull;
+
 import static com.google.android.gms.tapandpay.TapAndPayStatusCodes.TAP_AND_PAY_NO_ACTIVE_WALLET;
 import static com.google.android.gms.tapandpay.TapAndPayStatusCodes.TAP_AND_PAY_TOKEN_NOT_FOUND;
 
@@ -36,7 +39,7 @@ public class GooglePayIssuer extends Plugin {
 
     @PluginMethod()
     public void initialize(PluginCall call) {
-        tapAndPay = TapAndPay.getClient(this.cordova.getActivity());
+        tapAndPay = TapAndPay.getClient(this);
     }
     
     @PluginMethod()
@@ -69,7 +72,7 @@ public class GooglePayIssuer extends Plugin {
        }
 
        @PluginMethod()
-       public void getActiveWalletID(CallbackContext callbackContext) {
+       public void getActiveWalletID(final PluginCall call) {
         try{
           tapAndPay.getActiveWalletId().addOnCompleteListener(
             new OnCompleteListener<String>() {
@@ -81,7 +84,7 @@ public class GooglePayIssuer extends Plugin {
                   // Next: look up token ids for the active wallet
                   // This typically involves network calls to a server with knowledge
                   // of wallets and tokens.
-                  callbackContext.success(walletId);
+                  call.success(walletId);
                 } else {
                   ApiException apiException = (ApiException) task.getException();
                   if (apiException.getStatusCode() == TAP_AND_PAY_NO_ACTIVE_WALLET) {
@@ -91,14 +94,14 @@ public class GooglePayIssuer extends Plugin {
                     // eagerly before constructing an OPC (Opaque Payment Card)
                     // to pass into pushTokenize()
                     createWallet();
-                    getActiveWalletID(callbackContext);
+                    getActiveWalletID(call);
                   }
                 }
               }
             });
         }
         catch (Exception e){
-          callbackContext.error(e.getMessage());
+            call.error(e.getMessage());
         }
       }
 }

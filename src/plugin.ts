@@ -1,9 +1,8 @@
-import { Plugins } from '@capacitor/core';
-import type { GooglePayIssuerPlugin } from './definitions';
+import { registerWebPlugin, WebPlugin } from "@capacitor/core";
+import { GooglePayIssuerPlugin } from './definitions';
 
-const { GooglePayIssuer } = Plugins;
 
-export class GooglePayIssuerWeb implements GooglePayIssuerPlugin {
+export class GooglePayIssuerWeb  extends WebPlugin implements GooglePayIssuerPlugin {
 
     async getActiveWalletID(): Promise<any> {
         return GooglePayIssuer.getActiveWalletID();
@@ -45,5 +44,9 @@ export class GooglePayIssuerWeb implements GooglePayIssuerPlugin {
         return options;
     }
 }
+const GooglePayIssuer = new GooglePayIssuerWeb();
 
 export { GooglePayIssuer };
+
+
+registerWebPlugin(GooglePayIssuer);
