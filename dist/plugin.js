@@ -1,4 +1,4 @@
-var capacitorGooglePayIssuerPlugin = (function (exports, core) {
+var GooglePayIssuerPlugin = (function (exports, core) {
     'use strict';
 
     const { GooglePayIssuerPlugin } = core.Plugins;
