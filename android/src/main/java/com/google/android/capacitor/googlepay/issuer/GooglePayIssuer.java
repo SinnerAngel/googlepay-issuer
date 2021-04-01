@@ -1,4 +1,4 @@
-package com.google.android.capacitor.googlepay;
+package com.google.android.capacitor.googlepay.issuer;
 
 import static com.google.android.gms.tapandpay.TapAndPayStatusCodes.TAP_AND_PAY_NO_ACTIVE_WALLET;
 import static com.google.android.gms.tapandpay.TapAndPayStatusCodes.TAP_AND_PAY_TOKEN_NOT_FOUND;
