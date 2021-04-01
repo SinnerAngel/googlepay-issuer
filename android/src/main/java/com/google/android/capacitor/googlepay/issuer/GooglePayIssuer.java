@@ -79,7 +79,30 @@ public class GooglePayIssuer extends Plugin {
     }
   }
 
-       @PluginMethod()
+  @PluginMethod
+  public void getEnvironment(final PluginCall call) {
+    try{
+      this.tapAndPay.getEnvironment()
+        .addOnCompleteListener(
+          new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+              Log.i(TAG, "onComplete (getEnvironment) - " + task.isSuccessful());
+              if (task.isSuccessful()) {
+                Log.d(TAG, "getEnvironment: " + task.getResult());
+                JSObject result = new JSObject();
+                result.put("value",task.getResult());
+                call.success(result);
+              }
+            }
+          });
+    }
+    catch (Exception e){
+      call.error(e.getMessage());
+    }
+  }
+
+       @PluginMethod
        public void getActiveWalletID(final PluginCall call) {
         try{
           this.tapAndPay.getActiveWalletId().addOnCompleteListener(
@@ -115,8 +138,8 @@ public class GooglePayIssuer extends Plugin {
         }
       }
 
-  @PluginMethod()
-  private void getTokenStatus(int tsp, String tokenReferenceId, final PluginCall call){
+  @PluginMethod
+  public void getTokenStatus(int tsp, String tokenReferenceId, final PluginCall call){
     try{
       this.tapAndPay.getTokenStatus(tsp, tokenReferenceId)
         .addOnCompleteListener(
@@ -148,8 +171,8 @@ public class GooglePayIssuer extends Plugin {
     }
   }
 
-  @PluginMethod()
-  private void getStableHardwareId(final PluginCall call) {
+  @PluginMethod
+  public void getStableHardwareId(final PluginCall call) {
     try{
       this.tapAndPay.getStableHardwareId()
         .addOnCompleteListener(
@@ -171,31 +194,10 @@ public class GooglePayIssuer extends Plugin {
     }
   }
 
-  @PluginMethod()
-  private void getEnvironment(final PluginCall call) {
-    try{
-      this.tapAndPay.getEnvironment()
-        .addOnCompleteListener(
-          new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-              Log.i(TAG, "onComplete (getEnvironment) - " + task.isSuccessful());
-              if (task.isSuccessful()) {
-                Log.d(TAG, "getEnvironment: " + task.getResult());
-                JSObject result = new JSObject();
-                result.put("value",task.getResult());
-                call.success(result);
-              }
-            }
-          });
-    }
-    catch (Exception e){
-      call.error(e.getMessage());
-    }
-  }
 
-  @PluginMethod()
-  private void listTokens(final PluginCall call){
+
+  @PluginMethod
+  public void listTokens(final PluginCall call){
     try {
       this.tapAndPay.listTokens()
         .addOnCompleteListener(
@@ -218,8 +220,8 @@ public class GooglePayIssuer extends Plugin {
     }
   }
 
-  @PluginMethod()
-  private void registerDataChangedListener(final PluginCall call){
+  @PluginMethod
+  public void registerDataChangedListener(final PluginCall call){
     try {
       this.tapAndPay.registerDataChangedListener(
         new TapAndPay.DataChangedListener() {
@@ -234,8 +236,8 @@ public class GooglePayIssuer extends Plugin {
     }
   }
 
-  @PluginMethod()
-  private void createWallet(){
+  @PluginMethod
+  public void createWallet(){
     try{
       this.tapAndPay.createWallet(bridge.getActivity(),
         REQUEST_CREATE_WALLET);
@@ -245,8 +247,8 @@ public class GooglePayIssuer extends Plugin {
     }
   }
 
-  @PluginMethod()
-  private void pushProvision(byte[] opc, String tsp, String clientName, String lastDigits, JSONObject address, final PluginCall call) {
+  @PluginMethod
+  public void pushProvision(byte[] opc, String tsp, String clientName, String lastDigits, JSONObject address, final PluginCall call) {
     try{
       int cardNetwork = (tsp.equals("VISA")) ? TapAndPay.CARD_NETWORK_VISA : TapAndPay.CARD_NETWORK_MASTERCARD;
       int tokenProvider = (tsp.equals("VISA")) ? TapAndPay.TOKEN_PROVIDER_VISA : TapAndPay.TOKEN_PROVIDER_MASTERCARD;

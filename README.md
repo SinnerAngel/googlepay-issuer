@@ -13,44 +13,25 @@ npx cap sync
 
 <docgen-index>
 
-* [`pushProvision(...)`](#pushprovision)
 * [`getActiveWalletID()`](#getactivewalletid)
 * [`getTokenStatus(...)`](#gettokenstatus)
 * [`getEnvironment()`](#getenvironment)
 * [`getStableHardwareId()`](#getstablehardwareid)
 * [`listTokens()`](#listtokens)
+* [`pushProvision(...)`](#pushprovision)
 
 </docgen-index>
 
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
 
-### pushProvision(...)
-
-```typescript
-pushProvision(opc: string, tsp: string, clientName: string, lastDigits: string, address: object) => any
-```
-
-returns the ID of the active wallet
-
-| Param            | Type                |
-| ---------------- | ------------------- |
-| **`opc`**        | <code>string</code> |
-| **`tsp`**        | <code>string</code> |
-| **`clientName`** | <code>string</code> |
-| **`lastDigits`** | <code>string</code> |
-| **`address`**    | <code>object</code> |
-
-**Returns:** <code>any</code>
-
---------------------
-
-
 ### getActiveWalletID()
 
 ```typescript
 getActiveWalletID() => any
 ```
+
+returns the ID of the active wallet
 
 **Returns:** <code>any</code>
 
@@ -60,13 +41,14 @@ getActiveWalletID() => any
 ### getTokenStatus(...)
 
 ```typescript
-getTokenStatus(tsp: string, tokenReferenceId: string) => any
+getTokenStatus(options: { tsp: string; tokenReferenceId: string; }) => any
 ```
 
-| Param                  | Type                |
-| ---------------------- | ------------------- |
-| **`tsp`**              | <code>string</code> |
-| **`tokenReferenceId`** | <code>string</code> |
+returns the status of a token with a given token ID
+
+| Param         | Type                                                    |
+| ------------- | ------------------------------------------------------- |
+| **`options`** | <code>{ tsp: string; tokenReferenceId: string; }</code> |
 
 **Returns:** <code>any</code>
 
@@ -79,6 +61,8 @@ getTokenStatus(tsp: string, tokenReferenceId: string) => any
 getEnvironment() => any
 ```
 
+returns the environment (e.g. production or sandbox)
+
 **Returns:** <code>any</code>
 
 --------------------
@@ -90,6 +74,8 @@ getEnvironment() => any
 getStableHardwareId() => any
 ```
 
+returns the stable hardware ID of the device
+
 **Returns:** <code>any</code>
 
 --------------------
@@ -100,6 +86,25 @@ getStableHardwareId() => any
 ```typescript
 listTokens() => any
 ```
+
+returns a list of tokens registered to the active wallet
+
+**Returns:** <code>any</code>
+
+--------------------
+
+
+### pushProvision(...)
+
+```typescript
+pushProvision(options: { opc: string; tsp: string; clientName: string; lastDigits: string; address: object; }) => any
+```
+
+Push Provisionig
+
+| Param         | Type                                                                                                |
+| ------------- | --------------------------------------------------------------------------------------------------- |
+| **`options`** | <code>{ opc: string; tsp: string; clientName: string; lastDigits: string; address: object; }</code> |
 
 **Returns:** <code>any</code>
 
