@@ -2,6 +2,10 @@
 
 Plugin do Google Pay para o Capacitor
 
+## Required
+
+This plugin required Tap And Pay 17.1.0 SDK, access https://developers.google.com/pay/issuers
+
 ## Install
 
 ```bash
