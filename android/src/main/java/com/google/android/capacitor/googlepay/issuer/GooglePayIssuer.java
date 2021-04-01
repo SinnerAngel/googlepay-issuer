@@ -21,7 +21,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import java.util.List;
 
-@NativePlugin
+@NativePlugin()
 public class GooglePayIssuer extends Plugin {
 
     private static final String TAG = "GooglePayIssuer";
@@ -67,7 +67,7 @@ public class GooglePayIssuer extends Plugin {
             call.error(e.getMessage());
         }
        }
-       
+
        @PluginMethod
        public void getActiveWalletID(CallbackContext callbackContext) {
         try{
