@@ -24,9 +24,9 @@ import java.util.List;
 import org.json.JSONObject;
 
 @NativePlugin
-public class GooglePayIssuer extends Plugin {
+public class GooglePayIssuerPlugin extends Plugin {
 
-  private static final String TAG = "GooglePayIssuer";
+  private static final String TAG = "GooglePayIssuerPlugin";
   private static final int REQUEST_CODE_PUSH_TOKENIZE = 3;
   private static final int REQUEST_CREATE_WALLET = 4;
   private static final int RESULT_CANCELED = 0;
@@ -35,7 +35,7 @@ public class GooglePayIssuer extends Plugin {
   private PluginCall call;
   private String walletId;
 
-  public GooglePayIssuer() {}
+  public GooglePayIssuerPlugin() {}
 
 
 

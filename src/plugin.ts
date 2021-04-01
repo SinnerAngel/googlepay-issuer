@@ -1,29 +1,29 @@
 import { Plugins } from "@capacitor/core";
-import { GooglePayIssuerPlugin } from "./definitions";
+import { IGooglePayIssuer } from "./definitions";
 
-const { GooglePayIssuer } = Plugins;
+const { GooglePayIssuerPlugin } = Plugins;
 
-export class GooglePayIssuerIO implements GooglePayIssuerPlugin {
+export class GooglePayIssuer implements IGooglePayIssuer {
     constructor() {}
 
     getActiveWalletID(): Promise<any> {
-        return GooglePayIssuer.getActiveWalletID();
+        return GooglePayIssuerPlugin.getActiveWalletID();
     }
     getTokenStatus(tsp: string, tokenReferenceId: string): Promise<any> {
         const options = {
             tsp,
             tokenReferenceId
         }
-        return GooglePayIssuer.getTokenStatus(options);
+        return GooglePayIssuerPlugin.getTokenStatus(options);
     }
     getEnvironment(): Promise<any> {
-        return GooglePayIssuer.getEnvironment();
+        return GooglePayIssuerPlugin.getEnvironment();
     }
     getStableHardwareId(): Promise<any> {
-        return GooglePayIssuer.getStableHardwareId();
+        return GooglePayIssuerPlugin.getStableHardwareId();
     }
     listTokens(): Promise<any> {
-        return GooglePayIssuer.listTokens();
+        return GooglePayIssuerPlugin.listTokens();
     }
     pushProvision(opc: string, tsp: string, clientName: string, lastDigits: string, address: object): Promise<any> {
         const options = {
@@ -33,6 +33,6 @@ export class GooglePayIssuerIO implements GooglePayIssuerPlugin {
             lastDigits,
             address
         }
-        return GooglePayIssuer.pushProvision(options);
+        return GooglePayIssuerPlugin.pushProvision(options);
     }
 }
