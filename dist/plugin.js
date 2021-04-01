@@ -1,8 +1,7 @@
 var capacitorGooglePayIssuer = (function (exports, core) {
     'use strict';
 
-    const { GooglePayIssuer } = core.Plugins;
-    class GooglePayIssuerWeb {
+    class GooglePayIssuerWeb extends core.WebPlugin {
         async getActiveWalletID() {
             return GooglePayIssuer.getActiveWalletID();
         }
@@ -37,6 +36,8 @@ var capacitorGooglePayIssuer = (function (exports, core) {
             return options;
         }
     }
+    const GooglePayIssuer = new GooglePayIssuerWeb();
+    core.registerWebPlugin(GooglePayIssuer);
 
     exports.GooglePayIssuer = GooglePayIssuer;
     exports.GooglePayIssuerWeb = GooglePayIssuerWeb;

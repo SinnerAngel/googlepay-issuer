@@ -12,9 +12,16 @@ import com.getcapacitor.PluginMethod;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tapandpay.TapAndPay;
 import com.google.android.gms.tapandpay.TapAndPayClient;
+import com.google.android.gms.tapandpay.issuer.PushTokenizeRequest;
+import com.google.android.gms.tapandpay.issuer.TokenInfo;
 import com.google.android.gms.tapandpay.issuer.TokenStatus;
+import com.google.android.gms.tapandpay.issuer.UserAddress;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import org.json.JSONObject;
+
+import java.util.List;
 
 import static com.google.android.gms.tapandpay.TapAndPayStatusCodes.TAP_AND_PAY_NO_ACTIVE_WALLET;
 import static com.google.android.gms.tapandpay.TapAndPayStatusCodes.TAP_AND_PAY_TOKEN_NOT_FOUND;
@@ -28,6 +35,7 @@ public class GooglePayIssuer extends Plugin {
     private static final int RESULT_CANCELED = 0;
     private static final int RESULT_OK = -1;
     private TapAndPayClient tapAndPay;
+    private PluginCall call;
     private String walletId;
 
     public GooglePayIssuer() {}
@@ -38,38 +46,38 @@ public class GooglePayIssuer extends Plugin {
       this.tapAndPay = TapAndPay.getClient(bridge.getActivity());
     }
 
-    @PluginMethod()
-    public void getTokenStatus(int tsp, String tokenReferenceId, final PluginCall call){
-        try{
-          this.tapAndPay.getTokenStatus(tsp, tokenReferenceId)
-            .addOnCompleteListener(
-              new OnCompleteListener<TokenStatus>() {
-                @Override
-                public void onComplete(@NonNull Task<TokenStatus> task) {
-                  Log.i(TAG, "onComplete (getTokenStatus) - " + task.isSuccessful());
-                  if (task.isSuccessful()) {
-                    @TapAndPay.TokenState int tokenStateInt = task.getResult().getTokenState();
-                    boolean isSelected = task.getResult().isSelected();
-                    // Next: update payment card UI to reflect token state and selection
-                    JSObject result = new JSObject();
-                    result.put("tokenStateInt",tokenStateInt);
-                    call.success(result);
-                  } else {
-                    ApiException apiException = (ApiException) task.getException();
-                    if (apiException.getStatusCode() == TAP_AND_PAY_TOKEN_NOT_FOUND) {
-                      // Could not get token status
-                      JSObject result = new JSObject();
-                      result.put("error",apiException.getStatusCode());
-                      call.success(result);
-                    }
-                  }
-                }
-              });
-        }
-        catch (Exception e){
-            call.error(e.getMessage());
-        }
-       }
+  @Override
+  public void handleOnActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == REQUEST_CODE_PUSH_TOKENIZE) {
+      if (resultCode == RESULT_CANCELED) {
+        call.errorCallback("canceled");
+        return;
+      } else if (resultCode == RESULT_OK) {
+        // The action succeeded.
+        String tokenId = data.getStringExtra(TapAndPay.EXTRA_ISSUER_TOKEN_ID);
+        JSObject result = new JSObject();
+        result.put("value",tokenId);
+        call.success(result);
+        // Do something with tokenId.
+
+        return;
+      }
+    }
+    else if (requestCode == REQUEST_CREATE_WALLET) {
+      if (resultCode == bridge.getActivity().RESULT_CANCELED) {
+        // The user canceled the request.
+        call.errorCallback("canceled");
+        return;
+      } else if (resultCode == bridge.getActivity().RESULT_OK) {
+        call.success();
+        return;
+      }
+    }
+    else{
+      call.success();
+      return;
+    }
+  }
 
        @PluginMethod()
        public void getActiveWalletID(final PluginCall call) {
@@ -85,7 +93,7 @@ public class GooglePayIssuer extends Plugin {
                   // This typically involves network calls to a server with knowledge
                   // of wallets and tokens.
                   JSObject result = new JSObject();
-                  result.put("walletId",walletId);
+                  result.put("value",walletId);
                   call.success(result);
                 } else {
                   ApiException apiException = (ApiException) task.getException();
@@ -95,7 +103,7 @@ public class GooglePayIssuer extends Plugin {
                     // If necessary, you can call createWallet() to create a wallet
                     // eagerly before constructing an OPC (Opaque Payment Card)
                     // to pass into pushTokenize()
-//                    createWallet();
+                    createWallet();
                     getActiveWalletID(call);
                   }
                 }
@@ -106,4 +114,169 @@ public class GooglePayIssuer extends Plugin {
           call.error(e.getMessage());
         }
       }
+
+  @PluginMethod()
+  private void getTokenStatus(int tsp, String tokenReferenceId, final PluginCall call){
+    try{
+      this.tapAndPay.getTokenStatus(tsp, tokenReferenceId)
+        .addOnCompleteListener(
+          new OnCompleteListener<TokenStatus>() {
+            @Override
+            public void onComplete(@NonNull Task<TokenStatus> task) {
+              Log.i(TAG, "onComplete (getTokenStatus) - " + task.isSuccessful());
+              if (task.isSuccessful()) {
+                @TapAndPay.TokenState int tokenStateInt = task.getResult().getTokenState();
+                boolean isSelected = task.getResult().isSelected();
+                // Next: update payment card UI to reflect token state and selection
+                JSObject result = new JSObject();
+                result.put("value",tokenStateInt);
+                call.success(result);
+              } else {
+                ApiException apiException = (ApiException) task.getException();
+                if (apiException.getStatusCode() == TAP_AND_PAY_TOKEN_NOT_FOUND) {
+                  // Could not get token status
+                  JSObject result = new JSObject();
+                  result.put("value",apiException.getStatusCode());
+                  call.success(result);
+                }
+              }
+            }
+          });
+    }
+    catch (Exception e){
+      call.error(e.getMessage());
+    }
+  }
+
+  @PluginMethod()
+  private void getStableHardwareId(final PluginCall call) {
+    try{
+      this.tapAndPay.getStableHardwareId()
+        .addOnCompleteListener(
+          new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+              Log.i(TAG, "onComplete (getStableHardwareId) - " + task.isSuccessful());
+              if (task.isSuccessful()) {
+                Log.d(TAG, "getStableHardwareId: " + task.getResult());
+                JSObject result = new JSObject();
+                result.put("value",task.getResult());
+                call.success(result);
+              }
+            }
+          });
+    }
+    catch (Exception e){
+      call.error(e.getMessage());
+    }
+  }
+
+  @PluginMethod()
+  private void getEnvironment(final PluginCall call) {
+    try{
+      this.tapAndPay.getEnvironment()
+        .addOnCompleteListener(
+          new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+              Log.i(TAG, "onComplete (getEnvironment) - " + task.isSuccessful());
+              if (task.isSuccessful()) {
+                Log.d(TAG, "getEnvironment: " + task.getResult());
+                JSObject result = new JSObject();
+                result.put("value",task.getResult());
+                call.success(result);
+              }
+            }
+          });
+    }
+    catch (Exception e){
+      call.error(e.getMessage());
+    }
+  }
+
+  @PluginMethod()
+  private void listTokens(final PluginCall call){
+    try {
+      this.tapAndPay.listTokens()
+        .addOnCompleteListener(
+          new OnCompleteListener<List<TokenInfo>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<TokenInfo>> task) {
+              if (task.isSuccessful()) {
+                for (TokenInfo token : task.getResult()) {
+                  Log.d(TAG, "Found token with ID: " + token.getIssuerTokenId());
+                  JSObject result = new JSObject();
+                  result.put("value",token.getIssuerTokenId());
+                  call.success(result);
+                }
+              }
+            }
+          });
+    }
+    catch (Exception e){
+      call.error(e.getMessage());
+    }
+  }
+
+  @PluginMethod()
+  private void registerDataChangedListener(final PluginCall call){
+    try {
+      this.tapAndPay.registerDataChangedListener(
+        new TapAndPay.DataChangedListener() {
+          @Override
+          public void onDataChanged() {
+            // reload data
+          }
+        });
+    }
+    catch (Exception e){
+      call.error(e.getMessage());
+    }
+  }
+
+  @PluginMethod()
+  private void createWallet(){
+    try{
+      this.tapAndPay.createWallet(bridge.getActivity(),
+        REQUEST_CREATE_WALLET);
+    }
+    catch (Exception e) {
+      call.error(e.getMessage());
+    }
+  }
+
+  @PluginMethod()
+  private void pushProvision(byte[] opc, String tsp, String clientName, String lastDigits, JSONObject address, final PluginCall call) {
+    try{
+      int cardNetwork = (tsp.equals("VISA")) ? TapAndPay.CARD_NETWORK_VISA : TapAndPay.CARD_NETWORK_MASTERCARD;
+      int tokenProvider = (tsp.equals("VISA")) ? TapAndPay.TOKEN_PROVIDER_VISA : TapAndPay.TOKEN_PROVIDER_MASTERCARD;
+      UserAddress userAddress =
+        UserAddress.newBuilder()
+          .setName(address.getString("name"))
+          .setAddress1(address.getString("address"))
+          .setLocality(address.getString("locality"))
+          .setAdministrativeArea(address.getString("administrativeArea"))
+          .setCountryCode(address.getString("countryCode"))
+          .setPostalCode(address.getString("postalCode"))
+          .setPhoneNumber(address.getString("phoneNumber"))
+          .build();
+
+      PushTokenizeRequest pushTokenizeRequest = new PushTokenizeRequest.Builder()
+        .setOpaquePaymentCard(opc)
+        .setNetwork(cardNetwork)
+        .setTokenServiceProvider(tokenProvider)
+        .setDisplayName(clientName)
+        .setLastDigits(lastDigits)
+        .setUserAddress(userAddress)
+        .build();
+      this.tapAndPay.pushTokenize(
+        bridge.getActivity(),
+        pushTokenizeRequest,
+        REQUEST_CODE_PUSH_TOKENIZE); // a request code value you define as in Android's startActivityForResult
+    }
+    catch (Exception e){
+      call.error(e.getMessage());
+    }
+  }
+
 }

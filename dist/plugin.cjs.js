@@ -4,8 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var core = require('@capacitor/core');
 
-const { GooglePayIssuer } = core.Plugins;
-class GooglePayIssuerWeb {
+class GooglePayIssuerWeb extends core.WebPlugin {
     async getActiveWalletID() {
         return GooglePayIssuer.getActiveWalletID();
     }
@@ -40,6 +39,8 @@ class GooglePayIssuerWeb {
         return options;
     }
 }
+const GooglePayIssuer = new GooglePayIssuerWeb();
+core.registerWebPlugin(GooglePayIssuer);
 
 exports.GooglePayIssuer = GooglePayIssuer;
 exports.GooglePayIssuerWeb = GooglePayIssuerWeb;

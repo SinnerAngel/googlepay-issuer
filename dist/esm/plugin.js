@@ -1,6 +1,5 @@
-import { Plugins } from '@capacitor/core';
-const { GooglePayIssuer } = Plugins;
-export class GooglePayIssuerWeb {
+import { registerWebPlugin, WebPlugin } from "@capacitor/core";
+export class GooglePayIssuerWeb extends WebPlugin {
     async getActiveWalletID() {
         return GooglePayIssuer.getActiveWalletID();
     }
@@ -35,5 +34,7 @@ export class GooglePayIssuerWeb {
         return options;
     }
 }
+const GooglePayIssuer = new GooglePayIssuerWeb();
 export { GooglePayIssuer };
+registerWebPlugin(GooglePayIssuer);
 //# sourceMappingURL=plugin.js.map
