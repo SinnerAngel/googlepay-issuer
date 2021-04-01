@@ -34,12 +34,12 @@ public class GooglePayIssuer extends Plugin {
 
     public GooglePayIssuer() {}
 
-    @PluginMethod
+    @PluginMethod()
     public void initialize(CPluginCall call) {
         tapAndPay = TapAndPay.getClient(this.cordova.getActivity());
     }
     
-    @PluginMethod
+    @PluginMethod()
     public void getTokenStatus(int tsp, String tokenReferenceId, final PluginCall call){
         try{
           tapAndPay.getTokenStatus(tsp, tokenReferenceId)
@@ -68,7 +68,7 @@ public class GooglePayIssuer extends Plugin {
         }
        }
 
-       @PluginMethod
+       @PluginMethod()
        public void getActiveWalletID(CallbackContext callbackContext) {
         try{
           tapAndPay.getActiveWalletId().addOnCompleteListener(
