@@ -35,7 +35,7 @@ public class GooglePayIssuer extends Plugin {
     public GooglePayIssuer() {}
 
     @PluginMethod()
-    public void initialize(CPluginCall call) {
+    public void initialize(PluginCall call) {
         tapAndPay = TapAndPay.getClient(this.cordova.getActivity());
     }
     
