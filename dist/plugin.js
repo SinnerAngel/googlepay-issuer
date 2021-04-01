@@ -3,7 +3,6 @@ var capacitorGooglePayIssuerPlugin = (function (exports, core) {
 
     const { GooglePayIssuerPlugin } = core.Plugins;
     class GooglePayIssuer {
-        constructor() { }
         getActiveWalletID() {
             return GooglePayIssuerPlugin.getActiveWalletID();
         }

@@ -40,7 +40,7 @@ export interface IGooglePayIssuer {
     * @param address {object} Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).
     * @return {Promise<any>}
     */
-    pushProvision(opc: string, tsp: string, clientName: string, lastDigits: string, address: object): Promise<any>;
+    pushProvision(opc: string, tsp: string, clientName: string, lastDigits: string, address: any): Promise<any>;
 }
 export interface IGooglePayIssuerPlugin {
     /**
@@ -87,6 +87,6 @@ export interface IGooglePayIssuerPlugin {
         tsp: string;
         clientName: string;
         lastDigits: string;
-        address: object;
+        address: any;
     }): Promise<any>;
 }

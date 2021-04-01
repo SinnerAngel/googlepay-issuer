@@ -91,12 +91,12 @@
       },
       {
         "name": "pushProvision",
-        "signature": "(options: { opc: string; tsp: string; clientName: string; lastDigits: string; address: object; }) => any",
+        "signature": "(options: { opc: string; tsp: string; clientName: string; lastDigits: string; address: any; }) => any",
         "parameters": [
           {
             "name": "options",
             "docs": "",
-            "type": "{ opc: string; tsp: string; clientName: string; lastDigits: string; address: object; }"
+            "type": "{ opc: string; tsp: string; clientName: string; lastDigits: string; address: any; }"
           }
         ],
         "returns": "any",

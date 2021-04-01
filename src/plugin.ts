@@ -1,10 +1,10 @@
 import { Plugins } from "@capacitor/core";
-import { IGooglePayIssuer } from "./definitions";
+
+import type { IGooglePayIssuer } from "./definitions";
 
 const { GooglePayIssuerPlugin } = Plugins;
 
 export class GooglePayIssuer implements IGooglePayIssuer {
-    constructor() {}
 
     getActiveWalletID(): Promise<any> {
         return GooglePayIssuerPlugin.getActiveWalletID();
@@ -25,7 +25,7 @@ export class GooglePayIssuer implements IGooglePayIssuer {
     listTokens(): Promise<any> {
         return GooglePayIssuerPlugin.listTokens();
     }
-    pushProvision(opc: string, tsp: string, clientName: string, lastDigits: string, address: object): Promise<any> {
+    pushProvision(opc: string, tsp: string, clientName: string, lastDigits: string, address: any): Promise<any> {
         const options = {
             opc,
             tsp,

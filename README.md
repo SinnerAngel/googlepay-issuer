@@ -97,14 +97,14 @@ returns a list of tokens registered to the active wallet
 ### pushProvision(...)
 
 ```typescript
-pushProvision(options: { opc: string; tsp: string; clientName: string; lastDigits: string; address: object; }) => any
+pushProvision(options: { opc: string; tsp: string; clientName: string; lastDigits: string; address: any; }) => any
 ```
 
 Starts the push tokenization flow
 
-| Param         | Type                                                                                                |
-| ------------- | --------------------------------------------------------------------------------------------------- |
-| **`options`** | <code>{ opc: string; tsp: string; clientName: string; lastDigits: string; address: object; }</code> |
+| Param         | Type                                                                                             |
+| ------------- | ------------------------------------------------------------------------------------------------ |
+| **`options`** | <code>{ opc: string; tsp: string; clientName: string; lastDigits: string; address: any; }</code> |
 
 **Returns:** <code>any</code>
 
