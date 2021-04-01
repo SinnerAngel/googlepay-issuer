@@ -4,27 +4,27 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var core = require('@capacitor/core');
 
-const { GooglePayIssuer } = core.Plugins;
-class GooglePayIssuerIO {
+const { GooglePayIssuerPlugin } = core.Plugins;
+class GooglePayIssuer {
     constructor() { }
     getActiveWalletID() {
-        return GooglePayIssuer.getActiveWalletID();
+        return GooglePayIssuerPlugin.getActiveWalletID();
     }
     getTokenStatus(tsp, tokenReferenceId) {
         const options = {
             tsp,
             tokenReferenceId
         };
-        return GooglePayIssuer.getTokenStatus(options);
+        return GooglePayIssuerPlugin.getTokenStatus(options);
     }
     getEnvironment() {
-        return GooglePayIssuer.getEnvironment();
+        return GooglePayIssuerPlugin.getEnvironment();
     }
     getStableHardwareId() {
-        return GooglePayIssuer.getStableHardwareId();
+        return GooglePayIssuerPlugin.getStableHardwareId();
     }
     listTokens() {
-        return GooglePayIssuer.listTokens();
+        return GooglePayIssuerPlugin.listTokens();
     }
     pushProvision(opc, tsp, clientName, lastDigits, address) {
         const options = {
@@ -34,9 +34,9 @@ class GooglePayIssuerIO {
             lastDigits,
             address
         };
-        return GooglePayIssuer.pushProvision(options);
+        return GooglePayIssuerPlugin.pushProvision(options);
     }
 }
 
-exports.GooglePayIssuerIO = GooglePayIssuerIO;
+exports.GooglePayIssuer = GooglePayIssuer;
 //# sourceMappingURL=plugin.cjs.js.map

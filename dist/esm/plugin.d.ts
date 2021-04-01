@@ -1,5 +1,5 @@
-import { GooglePayIssuerPlugin } from "./definitions";
-export declare class GooglePayIssuerIO implements GooglePayIssuerPlugin {
+import { IGooglePayIssuer } from "./definitions";
+export declare class GooglePayIssuer implements IGooglePayIssuer {
     constructor();
     getActiveWalletID(): Promise<any>;
     getTokenStatus(tsp: string, tokenReferenceId: string): Promise<any>;

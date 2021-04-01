@@ -1,9 +1,9 @@
 declare module "@capacitor/core" {
     interface PluginRegistry {
-        GooglePayIssuer: GooglePayIssuerProtocol;
+        GooglePayIssuerPlugin: IGooglePayIssuerPlugin;
     }
 }
-export interface GooglePayIssuerPlugin {
+export interface IGooglePayIssuer {
     /**
     * returns the ID of the active wallet
     * @return {Promise<any>}
@@ -42,7 +42,7 @@ export interface GooglePayIssuerPlugin {
     */
     pushProvision(opc: string, tsp: string, clientName: string, lastDigits: string, address: object): Promise<any>;
 }
-export interface GooglePayIssuerProtocol {
+export interface IGooglePayIssuerPlugin {
     /**
     * returns the ID of the active wallet
     * @return {Promise<any>}

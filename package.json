@@ -9,8 +9,7 @@
     "files": [
         "android/src/main/",
         "android/build.gradle",
-        "dist/",
-        "src/assets/"
+        "dist/"
     ],
     "author": "Gabriel Cavalcanti D'Albuquerque Magalhães",
     "license": "MIT",
@@ -27,16 +26,14 @@
         "native"
     ],
     "scripts": {
-        "verify": "npm run verify:ios && npm run verify:android && npm run verify:web",
-        "verify:ios": "cd ios && pod install && xcodebuild -workspace Plugin.xcworkspace -scheme Plugin && cd ..",
+        "verify": "npm run verify:android",
         "verify:android": "cd android && ./gradlew clean build test && cd ..",
-        "verify:web": "npm run build",
         "lint": "npm run eslint && npm run prettier -- --check && npm run swiftlint -- lint",
         "fmt": "npm run eslint -- --fix && npm run prettier -- --write && npm run swiftlint -- autocorrect --format",
         "eslint": "eslint . --ext ts",
         "prettier": "prettier \"**/*.{css,html,ts,js,java}\"",
         "swiftlint": "node-swiftlint",
-        "docgen": "docgen --api GooglePayIssuerPlugin --output-readme README.md --output-json dist/docs.json",
+        "docgen": "docgen --api IGooglePayIssuerPlugin --output-readme README.md --output-json dist/docs.json",
         "build": "npm run clean && npm run docgen && tsc && rollup -c rollup.config.js",
         "clean": "rimraf ./dist",
         "watch": "tsc --watch",
