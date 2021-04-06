@@ -162,7 +162,8 @@ public class GooglePayIssuerPlugin extends Plugin {
                 if (apiException.getStatusCode() == TAP_AND_PAY_TOKEN_NOT_FOUND) {
                   // Could not get token status
                   JSObject result = new JSObject();
-                  result.put("value", apiException.getStatusCode());
+                  result.put("code", apiException.getStatusCode());
+                  result.put("message", "TAP_AND_PAY_TOKEN_NOT_FOUND");
                   call.success(result);
                 }
               }

@@ -13,6 +13,25 @@ npm install capacitor-plugin-googlepay-issuer
 npx cap sync
 ```
 
+On Android, register the plugin in your main activity:
+```java
+import com.google.android.capacitor.googlepay.issuer.GooglePayIssuerPlugin;
+
+public class MainActivity extends BridgeActivity {
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    // Initializes the Bridge
+    this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
+      // Additional plugins you've installed go here
+      // Ex: add(TotallyAwesomePlugin.class);
+      add(GooglePayIssuerPlugin.class);
+    }});
+  }
+}
+```
+
 ## API
 
 <docgen-index>
