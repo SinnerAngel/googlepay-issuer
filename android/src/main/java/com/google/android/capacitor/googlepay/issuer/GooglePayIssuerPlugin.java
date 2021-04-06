@@ -44,6 +44,27 @@ public class GooglePayIssuerPlugin extends Plugin {
   private PluginCall call;
   private String walletId;
   private Bridge brigde;
+  public enum TokenStatusReference  {
+    TOKEN_STATE_UNTOKENIZED(1),
+    TOKEN_STATE_PENDING(2),
+    TOKEN_STATE_NEEDS_IDENTITY_VERIFICATION(3),
+    TOKEN_STATE_SUSPENDED(4),
+    TOKEN_STATE_ACTIVE(5),
+    TOKEN_STATE_FELICA_PENDING_PROVISIONING(6);
+
+    public final int referenceId;
+    public static TokenStatusReference getName(int referenceId){
+      for(TokenStatusReference reference : values()) {
+        if (reference.referenceId == referenceId) {
+          return reference;
+        }
+      }
+      return null;
+    }
+    private TokenStatusReference(int referenceId) {
+      this.referenceId = referenceId;
+    }
+  }
 
   public GooglePayIssuerPlugin() {}
 
@@ -177,7 +198,8 @@ public class GooglePayIssuerPlugin extends Plugin {
                 boolean isSelected = task.getResult().isSelected();
                 // Next: update payment card UI to reflect token state and selection
                 JSObject result = new JSObject();
-                result.put("value", tokenStateInt);
+                result.put("code", tokenStateInt);
+                result.put("message", TokenStatusReference.getName(tokenStateInt));
                 call.success(result);
               } else {
                 ApiException apiException = (ApiException) task.getException();
