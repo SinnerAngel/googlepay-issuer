@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.util.Base64;
 import android.util.Log;
 import androidx.annotation.NonNull;
+
+import com.getcapacitor.Bridge;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
@@ -25,31 +27,49 @@ import com.google.android.gms.tasks.Task;
 import java.util.List;
 import org.json.JSONObject;
 
-@NativePlugin()
+@NativePlugin(
+  requestCodes={
+    GooglePayIssuerPlugin.REQUEST_CODE_PUSH_TOKENIZE,
+    GooglePayIssuerPlugin.REQUEST_CREATE_WALLET,
+  }
+)
 public class GooglePayIssuerPlugin extends Plugin {
 
   private static final String TAG = "GooglePayIssuerPlugin";
-  private static final int REQUEST_CODE_PUSH_TOKENIZE = 3;
-  private static final int REQUEST_CREATE_WALLET = 4;
-  private static final int RESULT_CANCELED = 0;
-  private static final int RESULT_OK = -1;
+  protected static final int REQUEST_CODE_PUSH_TOKENIZE = 3;
+  protected static final int REQUEST_CREATE_WALLET = 4;
+  protected static final int RESULT_CANCELED = 0;
+  protected static final int RESULT_OK = -1;
   private TapAndPayClient tapAndPay;
   private PluginCall call;
   private String walletId;
+  private Bridge brigde;
 
   public GooglePayIssuerPlugin() {}
 
   @Override
   public void load() {
     super.load();
-    this.tapAndPay = TapAndPay.getClient(bridge.getActivity());
+    this.brigde = brigde;
+    this.tapAndPay = TapAndPay.getClient(this.bridge.getActivity());
   }
 
   @Override
   public void handleOnActivityResult(int requestCode, int resultCode, Intent data) {
+    super.handleOnActivityResult(requestCode, resultCode, data);
+
+    // Get the previously saved call
+    PluginCall call = getSavedCall();
+
+    if (call == null) {
+      return;
+    }
+
     if (requestCode == REQUEST_CODE_PUSH_TOKENIZE) {
       if (resultCode == RESULT_CANCELED) {
-        call.errorCallback("canceled");
+        JSObject result = new JSObject();
+        result.put("value", "canceled");
+        call.success(result);
         return;
       } else if (resultCode == RESULT_OK) {
         // The action succeeded.
@@ -62,11 +82,13 @@ public class GooglePayIssuerPlugin extends Plugin {
         return;
       }
     } else if (requestCode == REQUEST_CREATE_WALLET) {
-      if (resultCode == bridge.getActivity().RESULT_CANCELED) {
+      if (resultCode == this.bridge.getActivity().RESULT_CANCELED) {
         // The user canceled the request.
-        call.errorCallback("canceled");
+        JSObject result = new JSObject();
+        result.put("value", "canceled");
+        call.success(result);
         return;
-      } else if (resultCode == bridge.getActivity().RESULT_OK) {
+      } else if (resultCode == this.bridge.getActivity().RESULT_OK) {
         call.success();
         return;
       }
@@ -241,7 +263,7 @@ public class GooglePayIssuerPlugin extends Plugin {
   @PluginMethod
   public void createWallet() {
     try {
-      this.tapAndPay.createWallet(bridge.getActivity(), REQUEST_CREATE_WALLET);
+      this.tapAndPay.createWallet(this.bridge.getActivity(), REQUEST_CREATE_WALLET);
     } catch (Exception e) {
       call.error(e.getMessage());
     }
@@ -278,7 +300,8 @@ public class GooglePayIssuerPlugin extends Plugin {
         .setLastDigits(lastDigits)
         .setUserAddress(userAddress)
         .build();
-      this.tapAndPay.pushTokenize(bridge.getActivity(), pushTokenizeRequest, REQUEST_CODE_PUSH_TOKENIZE); // a request code value you define as in Android's startActivityForResult
+      saveCall(call);
+      this.tapAndPay.pushTokenize(this.bridge.getActivity(), pushTokenizeRequest, REQUEST_CODE_PUSH_TOKENIZE); // a request code value you define as in Android's startActivityForResult
     } catch (Exception e) {
       call.error(e.getMessage());
     }
