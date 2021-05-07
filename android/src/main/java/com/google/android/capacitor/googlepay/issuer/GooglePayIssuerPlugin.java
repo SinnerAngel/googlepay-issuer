@@ -31,6 +31,8 @@ import org.json.JSONObject;
   requestCodes={
     GooglePayIssuerPlugin.REQUEST_CODE_PUSH_TOKENIZE,
     GooglePayIssuerPlugin.REQUEST_CREATE_WALLET,
+    GooglePayIssuerPlugin.REQUEST_CODE_SELECT_TOKEN,
+    GooglePayIssuerPlugin.REQUEST_CODE_DELETE_TOKEN
   }
 )
 public class GooglePayIssuerPlugin extends Plugin {
@@ -38,6 +40,8 @@ public class GooglePayIssuerPlugin extends Plugin {
   private static final String TAG = "GooglePayIssuerPlugin";
   protected static final int REQUEST_CODE_PUSH_TOKENIZE = 3;
   protected static final int REQUEST_CREATE_WALLET = 4;
+  protected static final int REQUEST_CODE_SELECT_TOKEN = 2;
+  protected static final int REQUEST_CODE_DELETE_TOKEN = 1;
   protected static final int RESULT_CANCELED = 0;
   protected static final int RESULT_OK = -1;
   private TapAndPayClient tapAndPay;
@@ -273,7 +277,7 @@ public class GooglePayIssuerPlugin extends Plugin {
         new TapAndPay.DataChangedListener() {
           @Override
           public void onDataChanged() {
-            // reload data
+            call.success();
           }
         }
       );
@@ -286,6 +290,28 @@ public class GooglePayIssuerPlugin extends Plugin {
   public void createWallet() {
     try {
       this.tapAndPay.createWallet(this.bridge.getActivity(), REQUEST_CREATE_WALLET);
+    } catch (Exception e) {
+      call.error(e.getMessage());
+    }
+  }
+
+  @PluginMethod
+  public void deleteToken(final PluginCall call) {
+    try {
+      String tsp = call.getString("tsp");
+      int tokenProvider = (tsp.equals("VISA")) ? TapAndPay.TOKEN_PROVIDER_VISA : TapAndPay.TOKEN_PROVIDER_MASTERCARD;
+      this.tapAndPay.requestDeleteToken(this.bridge.getActivity(), tokenProvider, REQUEST_CODE_DELETE_TOKEN);
+    } catch (Exception e) {
+      call.error(e.getMessage());
+    }
+  }
+
+  @PluginMethod
+  public void selectToken(final PluginCall call) {
+    try {
+      String tsp = call.getString("tsp");
+      int tokenProvider = (tsp.equals("VISA")) ? TapAndPay.TOKEN_PROVIDER_VISA : TapAndPay.TOKEN_PROVIDER_MASTERCARD;
+      this.tapAndPay.requestSelectToken(this.bridge.getActivity(), tokenProvider, REQUEST_CODE_SELECT_TOKEN);
     } catch (Exception e) {
       call.error(e.getMessage());
     }

@@ -74,6 +74,28 @@ export interface IGooglePayIssuerPlugin {
     */
     listTokens(): Promise<any>;
     /**
+  * returns the status of a token with a given token ID
+  * @param tsp {string} Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).
+  * @return {Promise<any>}
+  */
+    deleteToken(options: {
+        tsp: string;
+    }): Promise<any>;
+    /**
+  * returns the status of a token with a given token ID
+  * @param tsp {string} Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).
+  * @param tokenReferenceId {string} token registered to the active wallet
+  * @return {Promise<any>}
+  */
+    selectToken(options: {
+        tsp: string;
+    }): Promise<any>;
+    /**
+  * returns the status of a token with a given token ID
+  * @return {Promise<any>}
+  */
+    registerDataChangedListener(): Promise<any>;
+    /**
     *  Starts the push tokenization flow
     * @param opc {string} Sets Opaque Payment Card binary data.
     * @param tsp {string} Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).

@@ -22,6 +22,21 @@ var GooglePayIssuerPlugin = (function (exports, core) {
         listTokens() {
             return GooglePayIssuerPlugin.listTokens();
         }
+        deleteToken(tsp) {
+            const options = {
+                tsp
+            };
+            return GooglePayIssuerPlugin.deleteToken(options);
+        }
+        selectToken(tsp) {
+            const options = {
+                tsp
+            };
+            return GooglePayIssuerPlugin.selectToken(options);
+        }
+        registerDataChangedListener() {
+            return GooglePayIssuerPlugin.registerDataChangedListener();
+        }
         pushProvision(opc, tsp, clientName, lastDigits, address) {
             const options = {
                 opc,
