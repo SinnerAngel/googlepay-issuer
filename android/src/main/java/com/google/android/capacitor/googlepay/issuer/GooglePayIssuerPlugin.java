@@ -297,10 +297,14 @@ public class GooglePayIssuerPlugin extends Plugin {
 
   @PluginMethod
   public void deleteToken(final PluginCall call) {
+     final String tsp = call.getString("tsp");
+    final String tokenReferenceId = call.getString("tokenReferenceId");
+
+    int tokenServiceProvider = (tsp.equalsIgnoreCase("VISA")) ? TapAndPay.TOKEN_PROVIDER_VISA : TapAndPay.TOKEN_PROVIDER_MASTERCARD;
     try {
       String tsp = call.getString("tsp");
       int tokenProvider = (tsp.equals("VISA")) ? TapAndPay.TOKEN_PROVIDER_VISA : TapAndPay.TOKEN_PROVIDER_MASTERCARD;
-      this.tapAndPay.requestDeleteToken(this.bridge.getActivity(), tokenProvider, REQUEST_CODE_DELETE_TOKEN);
+      this.tapAndPay.requestDeleteToken(this.bridge.getActivity(),tokenReferenceId, tokenProvider, REQUEST_CODE_DELETE_TOKEN);
     } catch (Exception e) {
       call.error(e.getMessage());
     }
@@ -308,10 +312,13 @@ public class GooglePayIssuerPlugin extends Plugin {
 
   @PluginMethod
   public void selectToken(final PluginCall call) {
+     final String tsp = call.getString("tsp");
+    final String tokenReferenceId = call.getString("tokenReferenceId");
+    int tokenServiceProvider = (tsp.equalsIgnoreCase("VISA")) ? TapAndPay.TOKEN_PROVIDER_VISA : TapAndPay.TOKEN_PROVIDER_MASTERCARD;
     try {
       String tsp = call.getString("tsp");
       int tokenProvider = (tsp.equals("VISA")) ? TapAndPay.TOKEN_PROVIDER_VISA : TapAndPay.TOKEN_PROVIDER_MASTERCARD;
-      this.tapAndPay.requestSelectToken(this.bridge.getActivity(), tokenProvider, REQUEST_CODE_SELECT_TOKEN);
+      this.tapAndPay.requestSelectToken(this.bridge.getActivity(),tokenReferenceId, tokenProvider, REQUEST_CODE_SELECT_TOKEN);
     } catch (Exception e) {
       call.error(e.getMessage());
     }
