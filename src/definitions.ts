@@ -78,9 +78,10 @@ export interface IGooglePayIssuerPlugin {
   /**
 * returns the status of a token with a given token ID
 * @param tsp {string} Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).
+* @param tokenReferenceId {string} token registered to the active wallet
 * @return {Promise<any>}
 */
-  deleteToken(options: { tsp: string}): Promise<any>;
+  deleteToken(options: { tsp: string, tokenReferenceId: string }): Promise<any>;
 
   /**
 * returns the status of a token with a given token ID
@@ -88,7 +89,7 @@ export interface IGooglePayIssuerPlugin {
 * @param tokenReferenceId {string} token registered to the active wallet
 * @return {Promise<any>}
 */
-  selectToken(options: { tsp: string}): Promise<any>;
+  selectToken(options: { tsp: string, tokenReferenceId: string }): Promise<any>;
 
   /**
 * returns the status of a token with a given token ID
