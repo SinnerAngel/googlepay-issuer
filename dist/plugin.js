@@ -22,15 +22,17 @@ var GooglePayIssuerPlugin = (function (exports, core) {
         listTokens() {
             return GooglePayIssuerPlugin.listTokens();
         }
-        deleteToken(tsp) {
+        deleteToken(tsp, tokenReferenceId) {
             const options = {
-                tsp
+                tsp,
+                tokenReferenceId
             };
             return GooglePayIssuerPlugin.deleteToken(options);
         }
-        selectToken(tsp) {
+        selectToken(tsp, tokenReferenceId) {
             const options = {
-                tsp
+                tsp,
+                tokenReferenceId
             };
             return GooglePayIssuerPlugin.selectToken(options);
         }

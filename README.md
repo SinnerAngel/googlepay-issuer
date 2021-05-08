@@ -123,14 +123,14 @@ returns a list of tokens registered to the active wallet
 ### deleteToken(...)
 
 ```typescript
-deleteToken(options: { tsp: string; }) => any
+deleteToken(options: { tsp: string; tokenReferenceId: string; }) => any
 ```
 
 returns the status of a token with a given token ID
 
-| Param         | Type                          |
-| ------------- | ----------------------------- |
-| **`options`** | <code>{ tsp: string; }</code> |
+| Param         | Type                                                    |
+| ------------- | ------------------------------------------------------- |
+| **`options`** | <code>{ tsp: string; tokenReferenceId: string; }</code> |
 
 **Returns:** <code>any</code>
 
@@ -140,14 +140,14 @@ returns the status of a token with a given token ID
 ### selectToken(...)
 
 ```typescript
-selectToken(options: { tsp: string; }) => any
+selectToken(options: { tsp: string; tokenReferenceId: string; }) => any
 ```
 
 returns the status of a token with a given token ID
 
-| Param         | Type                          |
-| ------------- | ----------------------------- |
-| **`options`** | <code>{ tsp: string; }</code> |
+| Param         | Type                                                    |
+| ------------- | ------------------------------------------------------- |
+| **`options`** | <code>{ tsp: string; tokenReferenceId: string; }</code> |
 
 **Returns:** <code>any</code>
 
