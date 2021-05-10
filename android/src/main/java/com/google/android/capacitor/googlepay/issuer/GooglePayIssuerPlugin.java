@@ -15,6 +15,7 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.tapandpay.TapAndPay;
 import com.google.android.gms.tapandpay.TapAndPayClient;
 import com.google.android.gms.tapandpay.issuer.PushTokenizeRequest;
@@ -24,6 +25,7 @@ import com.google.android.gms.tapandpay.issuer.UserAddress;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONObject;
 
@@ -117,7 +119,20 @@ public class GooglePayIssuerPlugin extends Plugin {
         call.success();
         return;
       }
-    } else {
+    }
+    else if( requestCode == REQUEST_CODE_DELETE_TOKEN){
+      if (resultCode == this.bridge.getActivity().RESULT_CANCELED) {
+        // The user canceled the request.
+        JSObject result = new JSObject();
+        result.put("value", "canceled");
+        call.success(result);
+        return;
+      } else if (resultCode == this.bridge.getActivity().RESULT_OK) {
+        call.success();
+        return;
+      }
+    }
+    else {
       call.success();
       return;
     }
@@ -255,12 +270,14 @@ public class GooglePayIssuerPlugin extends Plugin {
             @Override
             public void onComplete(@NonNull Task<List<TokenInfo>> task) {
               if (task.isSuccessful()) {
+                JSObject result = new JSObject();
+                List<String> tokens = new ArrayList<String>();
                 for (TokenInfo token : task.getResult()) {
                   Log.d(TAG, "Found token with ID: " + token.getIssuerTokenId());
-                  JSObject result = new JSObject();
-                  result.put("value", token.getIssuerTokenId());
-                  call.success(result);
+                  tokens.add(token.getIssuerTokenId());
                 }
+                result.put("value", tokens);
+                call.success(result);
               }
             }
           }
@@ -299,10 +316,9 @@ public class GooglePayIssuerPlugin extends Plugin {
   public void deleteToken(final PluginCall call) {
      final String tsp = call.getString("tsp");
     final String tokenReferenceId = call.getString("tokenReferenceId");
-
-    int tokenServiceProvider = (tsp.equalsIgnoreCase("VISA")) ? TapAndPay.TOKEN_PROVIDER_VISA : TapAndPay.TOKEN_PROVIDER_MASTERCARD;
     try {
       int tokenProvider = (tsp.equals("VISA")) ? TapAndPay.TOKEN_PROVIDER_VISA : TapAndPay.TOKEN_PROVIDER_MASTERCARD;
+      saveCall(call);
       this.tapAndPay.requestDeleteToken(this.bridge.getActivity(),tokenReferenceId, tokenProvider, REQUEST_CODE_DELETE_TOKEN);
     } catch (Exception e) {
       call.error(e.getMessage());
@@ -313,9 +329,9 @@ public class GooglePayIssuerPlugin extends Plugin {
   public void selectToken(final PluginCall call) {
      final String tsp = call.getString("tsp");
     final String tokenReferenceId = call.getString("tokenReferenceId");
-    int tokenServiceProvider = (tsp.equalsIgnoreCase("VISA")) ? TapAndPay.TOKEN_PROVIDER_VISA : TapAndPay.TOKEN_PROVIDER_MASTERCARD;
     try {
       int tokenProvider = (tsp.equals("VISA")) ? TapAndPay.TOKEN_PROVIDER_VISA : TapAndPay.TOKEN_PROVIDER_MASTERCARD;
+      saveCall(call);
       this.tapAndPay.requestSelectToken(this.bridge.getActivity(),tokenReferenceId, tokenProvider, REQUEST_CODE_SELECT_TOKEN);
     } catch (Exception e) {
       call.error(e.getMessage());
