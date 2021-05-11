@@ -32,9 +32,7 @@ import org.json.JSONObject;
 @NativePlugin(
   requestCodes={
     GooglePayIssuerPlugin.REQUEST_CODE_PUSH_TOKENIZE,
-    GooglePayIssuerPlugin.REQUEST_CREATE_WALLET,
-    GooglePayIssuerPlugin.REQUEST_CODE_SELECT_TOKEN,
-    GooglePayIssuerPlugin.REQUEST_CODE_DELETE_TOKEN
+    GooglePayIssuerPlugin.REQUEST_CREATE_WALLET
   }
 )
 public class GooglePayIssuerPlugin extends Plugin {
@@ -42,8 +40,6 @@ public class GooglePayIssuerPlugin extends Plugin {
   private static final String TAG = "GooglePayIssuerPlugin";
   protected static final int REQUEST_CODE_PUSH_TOKENIZE = 3;
   protected static final int REQUEST_CREATE_WALLET = 4;
-  protected static final int REQUEST_CODE_SELECT_TOKEN = 2;
-  protected static final int REQUEST_CODE_DELETE_TOKEN = 1;
   protected static final int RESULT_CANCELED = 0;
   protected static final int RESULT_OK = -1;
   private TapAndPayClient tapAndPay;
@@ -109,18 +105,6 @@ public class GooglePayIssuerPlugin extends Plugin {
         return;
       }
     } else if (requestCode == REQUEST_CREATE_WALLET) {
-      if (resultCode == this.bridge.getActivity().RESULT_CANCELED) {
-        // The user canceled the request.
-        JSObject result = new JSObject();
-        result.put("value", "canceled");
-        call.success(result);
-        return;
-      } else if (resultCode == this.bridge.getActivity().RESULT_OK) {
-        call.success();
-        return;
-      }
-    }
-    else if( requestCode == REQUEST_CODE_DELETE_TOKEN){
       if (resultCode == this.bridge.getActivity().RESULT_CANCELED) {
         // The user canceled the request.
         JSObject result = new JSObject();
@@ -307,32 +291,6 @@ public class GooglePayIssuerPlugin extends Plugin {
   public void createWallet() {
     try {
       this.tapAndPay.createWallet(this.bridge.getActivity(), REQUEST_CREATE_WALLET);
-    } catch (Exception e) {
-      call.error(e.getMessage());
-    }
-  }
-
-  @PluginMethod
-  public void deleteToken(final PluginCall call) {
-     final String tsp = call.getString("tsp");
-    final String tokenReferenceId = call.getString("tokenReferenceId");
-    try {
-      int tokenProvider = (tsp.equals("VISA")) ? TapAndPay.TOKEN_PROVIDER_VISA : TapAndPay.TOKEN_PROVIDER_MASTERCARD;
-      saveCall(call);
-      this.tapAndPay.requestDeleteToken(this.bridge.getActivity(),tokenReferenceId, tokenProvider, REQUEST_CODE_DELETE_TOKEN);
-    } catch (Exception e) {
-      call.error(e.getMessage());
-    }
-  }
-
-  @PluginMethod
-  public void selectToken(final PluginCall call) {
-     final String tsp = call.getString("tsp");
-    final String tokenReferenceId = call.getString("tokenReferenceId");
-    try {
-      int tokenProvider = (tsp.equals("VISA")) ? TapAndPay.TOKEN_PROVIDER_VISA : TapAndPay.TOKEN_PROVIDER_MASTERCARD;
-      saveCall(call);
-      this.tapAndPay.requestSelectToken(this.bridge.getActivity(),tokenReferenceId, tokenProvider, REQUEST_CODE_SELECT_TOKEN);
     } catch (Exception e) {
       call.error(e.getMessage());
     }
