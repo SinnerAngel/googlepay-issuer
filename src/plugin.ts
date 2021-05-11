@@ -25,20 +25,6 @@ export class GooglePayIssuer implements IGooglePayIssuer {
     listTokens(): Promise<any> {
         return GooglePayIssuerPlugin.listTokens();
     }
-    deleteToken(tsp: string, tokenReferenceId: string): Promise<any> {
-        const options = {
-            tsp,
-            tokenReferenceId
-        }
-        return GooglePayIssuerPlugin.deleteToken(options);
-    }
-    selectToken(tsp: string, tokenReferenceId: string): Promise<any> {
-        const options = {
-            tsp,
-            tokenReferenceId
-        }
-        return GooglePayIssuerPlugin.selectToken(options);
-    }
     registerDataChangedListener(): Promise<any> {
         return GooglePayIssuerPlugin.registerDataChangedListener();
     }

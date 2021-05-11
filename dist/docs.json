@@ -90,62 +90,6 @@
         "slug": "listtokens"
       },
       {
-        "name": "deleteToken",
-        "signature": "(options: { tsp: string; tokenReferenceId: string; }) => any",
-        "parameters": [
-          {
-            "name": "options",
-            "docs": "",
-            "type": "{ tsp: string; tokenReferenceId: string; }"
-          }
-        ],
-        "returns": "any",
-        "tags": [
-          {
-            "name": "param",
-            "text": "tsp Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider)."
-          },
-          {
-            "name": "param",
-            "text": "tokenReferenceId token registered to the active wallet"
-          },
-          {
-            "name": "return"
-          }
-        ],
-        "docs": "returns the status of a token with a given token ID",
-        "complexTypes": [],
-        "slug": "deletetoken"
-      },
-      {
-        "name": "selectToken",
-        "signature": "(options: { tsp: string; tokenReferenceId: string; }) => any",
-        "parameters": [
-          {
-            "name": "options",
-            "docs": "",
-            "type": "{ tsp: string; tokenReferenceId: string; }"
-          }
-        ],
-        "returns": "any",
-        "tags": [
-          {
-            "name": "param",
-            "text": "tsp Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider)."
-          },
-          {
-            "name": "param",
-            "text": "tokenReferenceId token registered to the active wallet"
-          },
-          {
-            "name": "return"
-          }
-        ],
-        "docs": "returns the status of a token with a given token ID",
-        "complexTypes": [],
-        "slug": "selecttoken"
-      },
-      {
         "name": "registerDataChangedListener",
         "signature": "() => any",
         "parameters": [],

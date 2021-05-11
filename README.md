@@ -41,8 +41,6 @@ public class MainActivity extends BridgeActivity {
 * [`getEnvironment()`](#getenvironment)
 * [`getStableHardwareId()`](#getstablehardwareid)
 * [`listTokens()`](#listtokens)
-* [`deleteToken(...)`](#deletetoken)
-* [`selectToken(...)`](#selecttoken)
 * [`registerDataChangedListener()`](#registerdatachangedlistener)
 * [`pushProvision(...)`](#pushprovision)
 
@@ -114,40 +112,6 @@ listTokens() => any
 ```
 
 returns a list of tokens registered to the active wallet
-
-**Returns:** <code>any</code>
-
---------------------
-
-
-### deleteToken(...)
-
-```typescript
-deleteToken(options: { tsp: string; tokenReferenceId: string; }) => any
-```
-
-returns the status of a token with a given token ID
-
-| Param         | Type                                                    |
-| ------------- | ------------------------------------------------------- |
-| **`options`** | <code>{ tsp: string; tokenReferenceId: string; }</code> |
-
-**Returns:** <code>any</code>
-
---------------------
-
-
-### selectToken(...)
-
-```typescript
-selectToken(options: { tsp: string; tokenReferenceId: string; }) => any
-```
-
-returns the status of a token with a given token ID
-
-| Param         | Type                                                    |
-| ------------- | ------------------------------------------------------- |
-| **`options`** | <code>{ tsp: string; tokenReferenceId: string; }</code> |
 
 **Returns:** <code>any</code>
 

@@ -20,20 +20,6 @@ export class GooglePayIssuer {
     listTokens() {
         return GooglePayIssuerPlugin.listTokens();
     }
-    deleteToken(tsp, tokenReferenceId) {
-        const options = {
-            tsp,
-            tokenReferenceId
-        };
-        return GooglePayIssuerPlugin.deleteToken(options);
-    }
-    selectToken(tsp, tokenReferenceId) {
-        const options = {
-            tsp,
-            tokenReferenceId
-        };
-        return GooglePayIssuerPlugin.selectToken(options);
-    }
     registerDataChangedListener() {
         return GooglePayIssuerPlugin.registerDataChangedListener();
     }
