@@ -278,7 +278,9 @@ public class GooglePayIssuerPlugin extends Plugin {
         new TapAndPay.DataChangedListener() {
           @Override
           public void onDataChanged() {
-            call.success();
+            JSObject result = new JSObject();
+            result.put("value", "OK");
+            notifyListeners("registerDataChangedListener", result, true);
           }
         }
       );

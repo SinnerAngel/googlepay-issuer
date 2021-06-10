@@ -36,6 +36,7 @@ public class MainActivity extends BridgeActivity {
 
 <docgen-index>
 
+* [`addListener(...)`](#addlistener)
 * [`getActiveWalletID()`](#getactivewalletid)
 * [`getTokenStatus(...)`](#gettokenstatus)
 * [`getEnvironment()`](#getenvironment)
@@ -43,11 +44,30 @@ public class MainActivity extends BridgeActivity {
 * [`listTokens()`](#listtokens)
 * [`registerDataChangedListener()`](#registerdatachangedlistener)
 * [`pushProvision(...)`](#pushprovision)
+* [Interfaces](#interfaces)
 
 </docgen-index>
 
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
+
+### addListener(...)
+
+```typescript
+addListener(eventName: 'registerDataChangedListener', listenerFunc: (response: any) => void) => PluginListenerHandle
+```
+
+Event called when an action is performed on a pusn notification.
+
+| Param              | Type                                       | Description                            |
+| ------------------ | ------------------------------------------ | -------------------------------------- |
+| **`eventName`**    | <code>"registerDataChangedListener"</code> | pushNotificationActionPerformed.       |
+| **`listenerFunc`** | <code>(response: any) =&gt; void</code>    | callback with the notification action. |
+
+**Returns:** <code><a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+
+--------------------
+
 
 ### getActiveWalletID()
 
@@ -146,5 +166,15 @@ Starts the push tokenization flow
 **Returns:** <code>any</code>
 
 --------------------
+
+
+### Interfaces
+
+
+#### PluginListenerHandle
+
+| Prop         | Type                      |
+| ------------ | ------------------------- |
+| **`remove`** | <code>() =&gt; any</code> |
 
 </docgen-api>

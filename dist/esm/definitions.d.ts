@@ -1,3 +1,4 @@
+import { PluginListenerHandle } from "@capacitor/core";
 declare module "@capacitor/core" {
     interface PluginRegistry {
         GooglePayIssuerPlugin: IGooglePayIssuerPlugin;
@@ -32,6 +33,11 @@ export interface IGooglePayIssuer {
     */
     listTokens(): Promise<any>;
     /**
+  * returns the status of a token with a given token ID
+  * @return {Promise<any>}
+  */
+    registerDataChangedListener(): Promise<any>;
+    /**
     * Push Provisionig
     * @param opc {string} Sets Opaque Payment Card binary data.
     * @param tsp {string} Sets the TSP that should be used for the tokenization attempt (see TokenServiceProvider).
@@ -42,7 +48,13 @@ export interface IGooglePayIssuer {
     */
     pushProvision(opc: string, tsp: string, clientName: string, lastDigits: string, address: any): Promise<any>;
 }
-export interface IGooglePayIssuerPlugin {
+export interface IGooglePayIssuerPlugin extends Plugin {
+    /**
+      * Event called when an action is performed on a pusn notification.
+      * @param eventName pushNotificationActionPerformed.
+      * @param listenerFunc callback with the notification action.
+      */
+    addListener(eventName: 'registerDataChangedListener', listenerFunc: (response: any) => void): PluginListenerHandle;
     /**
     * returns the ID of the active wallet
     * @return {Promise<any>}
@@ -94,4 +106,7 @@ export interface IGooglePayIssuerPlugin {
         lastDigits: string;
         address: any;
     }): Promise<any>;
+}
+export interface Plugin {
+    addListener(eventName: string, listenerFunc: Function): PluginListenerHandle;
 }

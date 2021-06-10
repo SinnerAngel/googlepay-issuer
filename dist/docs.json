@@ -6,6 +6,38 @@
     "tags": [],
     "methods": [
       {
+        "name": "addListener",
+        "signature": "(eventName: 'registerDataChangedListener', listenerFunc: (response: any) => void) => PluginListenerHandle",
+        "parameters": [
+          {
+            "name": "eventName",
+            "docs": "pushNotificationActionPerformed.",
+            "type": "\"registerDataChangedListener\""
+          },
+          {
+            "name": "listenerFunc",
+            "docs": "callback with the notification action.",
+            "type": "(response: any) => void"
+          }
+        ],
+        "returns": "PluginListenerHandle",
+        "tags": [
+          {
+            "name": "param",
+            "text": "eventName pushNotificationActionPerformed."
+          },
+          {
+            "name": "param",
+            "text": "listenerFunc callback with the notification action."
+          }
+        ],
+        "docs": "Event called when an action is performed on a pusn notification.",
+        "complexTypes": [
+          "PluginListenerHandle"
+        ],
+        "slug": "addlistener"
+      },
+      {
         "name": "getActiveWalletID",
         "signature": "() => any",
         "parameters": [],
@@ -146,6 +178,23 @@
     ],
     "properties": []
   },
-  "interfaces": [],
+  "interfaces": [
+    {
+      "name": "PluginListenerHandle",
+      "slug": "pluginlistenerhandle",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "remove",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "() => any"
+        }
+      ]
+    }
+  ],
   "enums": []
 }

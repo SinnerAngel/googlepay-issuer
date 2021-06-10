@@ -4,7 +4,7 @@ import type { IGooglePayIssuer } from "./definitions";
 
 const { GooglePayIssuerPlugin } = Plugins;
 
-export class GooglePayIssuer implements IGooglePayIssuer { 
+export class GooglePayIssuer implements IGooglePayIssuer {
 
     getActiveWalletID(): Promise<any> {
         return GooglePayIssuerPlugin.getActiveWalletID();
