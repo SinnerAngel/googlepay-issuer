@@ -4,6 +4,10 @@ var GooglePayIssuerPlugin = (function (exports, core) {
     const { GooglePayIssuerPlugin } = core.Plugins;
     class GooglePayIssuer {
         constructor() { }
+        removeAllListeners() {
+            GooglePayIssuerPlugin.removeAllListeners();
+        }
+        ;
         addListener(eventName, listenerFunc) {
             GooglePayIssuerPlugin.registerDataChangedListener();
             return GooglePayIssuerPlugin.addListener(eventName, (res) => {

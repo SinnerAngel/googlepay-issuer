@@ -1,6 +1,7 @@
 import type { IGooglePayIssuer } from "./definitions";
 export declare class GooglePayIssuer implements IGooglePayIssuer {
     constructor();
+    removeAllListeners(): void;
     addListener(eventName: 'registerDataChangedListener', listenerFunc: (response: any) => void): import("@capacitor/core").PluginListenerHandle;
     getActiveWalletID(): Promise<any>;
     getTokenStatus(tsp: string, tokenReferenceId: string): Promise<any>;

@@ -2,6 +2,10 @@ import { Plugins } from "@capacitor/core";
 const { GooglePayIssuerPlugin } = Plugins;
 export class GooglePayIssuer {
     constructor() { }
+    removeAllListeners() {
+        GooglePayIssuerPlugin.removeAllListeners();
+    }
+    ;
     addListener(eventName, listenerFunc) {
         GooglePayIssuerPlugin.registerDataChangedListener();
         return GooglePayIssuerPlugin.addListener(eventName, (res) => {

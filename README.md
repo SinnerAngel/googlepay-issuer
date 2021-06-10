@@ -37,6 +37,7 @@ public class MainActivity extends BridgeActivity {
 <docgen-index>
 
 * [`addListener(...)`](#addlistener)
+* [`removeAllListeners()`](#removealllisteners)
 * [`getActiveWalletID()`](#getactivewalletid)
 * [`getTokenStatus(...)`](#gettokenstatus)
 * [`getEnvironment()`](#getenvironment)
@@ -65,6 +66,15 @@ Event called when an action is performed on a pusn notification.
 | **`listenerFunc`** | <code>(response: any) =&gt; void</code>    | callback with the notification action. |
 
 **Returns:** <code><a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+
+--------------------
+
+
+### removeAllListeners()
+
+```typescript
+removeAllListeners() => void
+```
 
 --------------------
 

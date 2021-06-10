@@ -61,6 +61,7 @@ export interface IGooglePayIssuerPlugin extends Plugin {
       * @param listenerFunc callback with the notification action.
       */
     addListener(eventName: 'registerDataChangedListener', listenerFunc: (response: any) => void): PluginListenerHandle;
+    removeAllListeners(): void;
     /**
     * returns the ID of the active wallet
     * @return {Promise<any>}

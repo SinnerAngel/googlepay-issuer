@@ -38,6 +38,16 @@
         "slug": "addlistener"
       },
       {
+        "name": "removeAllListeners",
+        "signature": "() => void",
+        "parameters": [],
+        "returns": "void",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "removealllisteners"
+      },
+      {
         "name": "getActiveWalletID",
         "signature": "() => any",
         "parameters": [],
