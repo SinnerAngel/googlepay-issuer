@@ -6,7 +6,13 @@ declare module "@capacitor/core" {
   }
 }
 
-export interface IGooglePayIssuer{
+export interface IGooglePayIssuer extends Plugin {
+  /**
+   * Event called when an action is performed on a pusn notification.
+   * @param eventName pushNotificationActionPerformed.
+   * @param listenerFunc callback with the notification action.
+   */
+  addListener(eventName: 'registerDataChangedListener', listenerFunc: (response: any) => void): PluginListenerHandle;
   /**
   * returns the ID of the active wallet
   * @return {Promise<any>}
@@ -54,12 +60,12 @@ export interface IGooglePayIssuer{
 }
 
 export interface IGooglePayIssuerPlugin extends Plugin {
-   /**
-     * Event called when an action is performed on a pusn notification.
-     * @param eventName pushNotificationActionPerformed.
-     * @param listenerFunc callback with the notification action.
-     */
-    addListener(eventName: 'registerDataChangedListener', listenerFunc: (response: any) => void): PluginListenerHandle;
+  /**
+    * Event called when an action is performed on a pusn notification.
+    * @param eventName pushNotificationActionPerformed.
+    * @param listenerFunc callback with the notification action.
+    */
+  addListener(eventName: 'registerDataChangedListener', listenerFunc: (response: any) => void): PluginListenerHandle;
   /**
   * returns the ID of the active wallet
   * @return {Promise<any>}

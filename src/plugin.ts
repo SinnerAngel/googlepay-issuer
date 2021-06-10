@@ -8,8 +8,10 @@ export class GooglePayIssuer implements IGooglePayIssuer {
 
     constructor() { }
 
-    addListener(){
-        return GooglePayIssuerPlugin.addListener;
+    addListener(eventName: 'registerDataChangedListener', listenerFunc: (response: any) => void) {
+        return GooglePayIssuerPlugin.addListener(eventName, (res) => {
+            listenerFunc(res);
+        });
     }
 
     getActiveWalletID(): Promise<any> {
