@@ -3,6 +3,7 @@ const { GooglePayIssuerPlugin } = Plugins;
 export class GooglePayIssuer {
     constructor() { }
     addListener(eventName, listenerFunc) {
+        GooglePayIssuerPlugin.registerDataChangedListener();
         return GooglePayIssuerPlugin.addListener(eventName, (res) => {
             listenerFunc(res);
         });

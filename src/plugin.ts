@@ -9,6 +9,7 @@ export class GooglePayIssuer implements IGooglePayIssuer {
     constructor() { }
 
     addListener(eventName: 'registerDataChangedListener', listenerFunc: (response: any) => void) {
+        GooglePayIssuerPlugin.registerDataChangedListener();
         return GooglePayIssuerPlugin.addListener(eventName, (res) => {
             listenerFunc(res);
         });

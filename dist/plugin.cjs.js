@@ -8,6 +8,7 @@ const { GooglePayIssuerPlugin } = core.Plugins;
 class GooglePayIssuer {
     constructor() { }
     addListener(eventName, listenerFunc) {
+        GooglePayIssuerPlugin.registerDataChangedListener();
         return GooglePayIssuerPlugin.addListener(eventName, (res) => {
             listenerFunc(res);
         });
