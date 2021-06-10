@@ -1,6 +1,10 @@
 import { Plugins } from "@capacitor/core";
 const { GooglePayIssuerPlugin } = Plugins;
 export class GooglePayIssuer {
+    constructor() { }
+    addListener() {
+        return GooglePayIssuerPlugin.addListener;
+    }
     getActiveWalletID() {
         return GooglePayIssuerPlugin.getActiveWalletID();
     }

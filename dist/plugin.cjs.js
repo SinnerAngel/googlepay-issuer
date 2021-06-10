@@ -6,6 +6,10 @@ var core = require('@capacitor/core');
 
 const { GooglePayIssuerPlugin } = core.Plugins;
 class GooglePayIssuer {
+    constructor() { }
+    addListener() {
+        return GooglePayIssuerPlugin.addListener;
+    }
     getActiveWalletID() {
         return GooglePayIssuerPlugin.getActiveWalletID();
     }

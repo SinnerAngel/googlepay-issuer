@@ -3,6 +3,10 @@ var GooglePayIssuerPlugin = (function (exports, core) {
 
     const { GooglePayIssuerPlugin } = core.Plugins;
     class GooglePayIssuer {
+        constructor() { }
+        addListener() {
+            return GooglePayIssuerPlugin.addListener;
+        }
         getActiveWalletID() {
             return GooglePayIssuerPlugin.getActiveWalletID();
         }

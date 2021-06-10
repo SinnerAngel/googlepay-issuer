@@ -6,6 +6,12 @@ const { GooglePayIssuerPlugin } = Plugins;
 
 export class GooglePayIssuer implements IGooglePayIssuer {
 
+    constructor() { }
+
+    addListener(){
+        return GooglePayIssuerPlugin.addListener;
+    }
+
     getActiveWalletID(): Promise<any> {
         return GooglePayIssuerPlugin.getActiveWalletID();
     }
