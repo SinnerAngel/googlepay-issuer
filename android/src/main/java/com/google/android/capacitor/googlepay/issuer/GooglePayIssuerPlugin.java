@@ -170,8 +170,9 @@ public class GooglePayIssuerPlugin extends Plugin {
                   // If necessary, you can call createWallet() to create a wallet
                   // eagerly before constructing an OPC (Opaque Payment Card)
                   // to pass into pushTokenize()
-                  createWallet();
-                  getActiveWalletID(call);
+                  // createWallet();
+                  //getActiveWalletID(call);
+                  call.error("Aplicativo Google Pay não está desponível.");
                 }
               }
             }
